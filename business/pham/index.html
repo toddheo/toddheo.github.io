@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>공장형 약국 사업 타당성 제안서 v2.0</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; background: #f8f9fa; color: #212529; display: flex; }
+    .sidebar { width: 280px; min-height: 100vh; background: #1a1a2e; color: #e0e0e0; position: fixed; top: 0; left: 0; overflow-y: auto; padding: 20px 0; z-index: 100; }
+    .sidebar .logo { padding: 16px 20px 24px; border-bottom: 1px solid #2d2d4e; }
+    .sidebar .logo h1 { font-size: 14px; color: #fff; line-height: 1.5; }
+    .sidebar .logo p { font-size: 11px; color: #888; margin-top: 4px; }
+    .sidebar nav ul { list-style: none; padding: 12px 0; }
+    .sidebar nav ul li a { display: block; padding: 8px 20px; font-size: 13px; color: #b0b0c0; text-decoration: none; transition: all 0.2s; border-left: 3px solid transparent; }
+    .sidebar nav ul li a:hover { color: #fff; background: rgba(255,255,255,0.05); border-left-color: #4361ee; }
+    .sidebar nav .section-title { padding: 16px 20px 6px; font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 0.08em; }
+    .main { margin-left: 280px; padding: 40px 60px; max-width: calc(100% - 280px); }
+    .main section { max-width: 820px; margin: 0 auto 80px; scroll-margin-top: 40px; }
+    h1 { font-size: 28px; font-weight: 700; color: #1a1a2e; border-bottom: 3px solid #4361ee; padding-bottom: 12px; margin-bottom: 24px; }
+    h2 { font-size: 20px; font-weight: 600; color: #1a1a2e; margin: 40px 0 16px; padding-left: 12px; border-left: 4px solid #4361ee; }
+    h3 { font-size: 16px; font-weight: 600; color: #343a40; margin: 28px 0 12px; }
+    p { line-height: 1.8; margin-bottom: 16px; color: #495057; }
+    .table-wrap { overflow-x: auto; margin: 16px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th { background: #1a1a2e; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; }
+    td { padding: 9px 14px; border-bottom: 1px solid #dee2e6; }
+    tr:hover td { background: #f8f9fa; }
+    tr:nth-child(even) td { background: #f8f9fa; }
+    tr:nth-child(even):hover td { background: #e9ecef; }
+    blockquote { background: #f0f4ff; border-left: 4px solid #4361ee; padding: 14px 20px; margin: 16px 0; border-radius: 0 8px 8px 0; font-size: 14px; color: #343a40; }
+    blockquote.warn { background: #fff8e1; border-left-color: #ffc107; }
+    blockquote.success { background: #e8f5e9; border-left-color: #4caf50; }
+    pre { background: #1e1e2e; color: #cdd6f4; padding: 20px; border-radius: 8px; font-size: 13px; overflow-x: auto; line-height: 1.7; margin: 16px 0; font-family: 'Courier New', monospace; white-space: pre; }
+    .cover { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); color: #fff; padding: 60px; border-radius: 12px; margin-bottom: 60px; }
+    .cover h1 { color: #fff; border-color: rgba(255,255,255,0.3); font-size: 32px; }
+    .cover .subtitle { font-size: 18px; color: rgba(255,255,255,0.8); margin-top: 12px; }
+    .cover .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+    .cover .kpi-card { background: rgba(255,255,255,0.1); border-radius: 8px; padding: 16px; border: 1px solid rgba(255,255,255,0.15); }
+    .cover .kpi-card .label { font-size: 11px; color: rgba(255,255,255,0.6); margin-bottom: 6px; }
+    .cover .kpi-card .value { font-size: 18px; font-weight: 700; color: #fff; }
+    hr { border: none; border-top: 1px solid #dee2e6; margin: 40px 0; }
+    .chapter-meta { font-size: 12px; color: #868e96; margin-bottom: 24px; }
+    tr.highlight td { background: #e8f5e9 !important; font-weight: 600; }
+    tr.total td { background: #1a1a2e !important; color: #fff !important; font-weight: 700; }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; margin: 2px; }
+    .badge-blue { background: #dbeafe; color: #1d4ed8; }
+    .badge-green { background: #dcfce7; color: #166534; }
+    .badge-new { background: #fef3c7; color: #92400e; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 4px; }
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); }
+      .main { margin-left: 0; padding: 20px; }
+      .cover .kpi-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="logo">
+    <h1>공장형 약국<br>사업 타당성 제안서</h1>
+    <p>v2.0 — 2026-05-14 최신화</p>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="#cover">표지 &amp; 개요</a></li>
+      <div class="section-title">전략 분석</div>
+      <li><a href="#ch01">01. Executive Summary</a></li>
+      <li><a href="#ch02">02. 상권 분석</a></li>
+      <li><a href="#ch03">03. 수익 모델</a></li>
+      <li><a href="#ch04">04. 재무 계획</a></li>
+      <li><a href="#ch04b">04B. 매출 시나리오 (신)</a></li>
+      <li><a href="#ch05">05. 마케팅 전략</a></li>
+      <li><a href="#ch06">06. 법적 고려사항</a></li>
+      <li><a href="#ch07">07. 산업 레퍼런스</a></li>
+      <div class="section-title">재무 상세</div>
+      <li><a href="08_revenue.html">08. 매출 시나리오 (신) ↗</a></li>
+    </ul>
+  </nav>
+</nav>
+
+<div class="main">
+
+<!-- COVER -->
+<section id="cover">
+  <div class="cover">
+    <h1>공장형 약국 사업 타당성 제안서</h1>
+    <p class="subtitle">"처방전 없이도 이긴다 — 마트 트래픽 + 비급여 고마진 + 약사 신뢰의 삼각 편대"</p>
+    <p style="margin-top:12px;font-size:13px;color:rgba(255,255,255,0.6);">2026-05-07 최초 작성 | 2026-05-14 전면 개정 | Prepared by: 사업 기획팀 (CFO: 수진) | Status: 내부 검토용</p>
+    <div class="kpi-grid">
+      <div class="kpi-card"><div class="label">사업 형태</div><div class="value">구로구 킹콩마트 내 152평 숍인숍</div></div>
+      <div class="kpi-card"><div class="label">월 고정비</div><div class="value">6,000만원</div></div>
+      <div class="kpi-card"><div class="label">영업이익률</div><div class="value">40% (전 시나리오)</div></div>
+      <div class="kpi-card"><div class="label">객단가 (신버전)</div><div class="value">40,000원</div></div>
+      <div class="kpi-card"><div class="label">운영 시작</div><div class="value">2026년 7월</div></div>
+      <div class="kpi-card"><div class="label">시나리오 수</div><div class="value">7개 (S1~S7)</div></div>
+    </div>
+  </div>
+
+  <h2>한눈에 보는 핵심 지표</h2>
+  <div class="table-wrap"><table>
+    <tr><th>항목</th><th>내용</th></tr>
+    <tr><td>사업 형태</td><td>구로구 킹콩식자재마트 내 <strong>150평</strong> 공장형 약국 (숍인숍)</td></tr>
+    <tr><td>대표</td><td>장모님 (약사면허 보유, 개인사업자 명의)</td></tr>
+    <tr><td>CFO</td><td>아내 수진 (M&amp;A·법무·재무 백그라운드)</td></tr>
+    <tr><td>투자자</td><td>사위 허진영 (대여금 <strong>1억~1.5억원</strong>, 공정증서 보호)</td></tr>
+    <tr><td>초기 실질 자금 소요</td><td>목표 협상 기준 <strong>1억 6,520만원</strong> (Rent-free 3개월 절감 후)</td></tr>
+    <tr><td>월 고정비 (신버전)</td><td>약 <strong>6,000만원</strong> (CFO 기본급 500만원 포함)</td></tr>
+    <tr><td>영업이익률</td><td>매출액의 <strong>40%</strong> (전 시나리오 고정)</td></tr>
+    <tr><td>운영 시작</td><td><strong>2026년 7월</strong></td></tr>
+    <tr><td>투자 회수 기간</td><td><strong>2년 이내</strong> 완료 가능</td></tr>
+  </table></div>
+
+  <h2>수익 모델 요약 (처방전 없는 비급여 특화 모델)</h2>
+  <div class="table-wrap"><table>
+    <tr><th>카테고리</th><th>비중</th><th>순마진율</th></tr>
+    <tr><td>OTC (일반의약품)</td><td>40%</td><td>35~40%</td></tr>
+    <tr><td>건강기능식품</td><td>30%</td><td>45~55%</td></tr>
+    <tr><td>비급여약 (비만·탈모·피부)</td><td>25%</td><td>40~48%</td></tr>
+    <tr><td>반려동물 의약품</td><td>5%</td><td>40~50%</td></tr>
+    <tr class="highlight"><td><strong>혼합 평균 순마진율</strong></td><td><strong>100%</strong></td><td><strong>43%</strong></td></tr>
+  </table></div>
+
+  <h2>실데이터 근거 (6가지)</h2>
+  <blockquote class="success"><strong>전국 약국 평균 연매출 12억 3,620만원</strong> — 카드매출 실데이터, 데일리팜</blockquote>
+  <blockquote class="success"><strong>공장형 약국 마진율 43%</strong> — OTC+건기식+비급여 혼합 모델 기준</blockquote>
+  <blockquote class="success"><strong>창고형·공장형 약국 전국 50개 이상 허가</strong> (2025.06~2026.04, 약 10개월 내)</blockquote>
+  <blockquote class="success"><strong>메가팩토리약국 금천점 870평</strong> (홈플러스 내), 성남 메가팩토리 500평 일 300명+ 방문</blockquote>
+  <blockquote class="success"><strong>종로프라자약국 20평 일 100명</strong> (장모님 현 약국) — 152평 공장형 전환 시 확장 여력 충분</blockquote>
+  <blockquote class="success"><strong>비급여 GLP-1 시장 2025년 급성장</strong> — 비만약 월 구독 객단가 10~20만원</blockquote>
+</section>
+
+<!-- CH01 -->
+<section id="ch01">
+  <h1>01. Executive Summary</h1>
+  <p class="chapter-meta">2026-05-08 전면 개정판 | Prepared by: 사업 기획팀 (CFO: 권수진) | Status: 내부 검토용 / 잠재 투자자 제시용</p>
+
+  <h2>1.1 한 줄 사업 정의</h2>
+  <blockquote>"처방전 없이도 이긴다 — 킹콩마트 트래픽 × 비급여 고마진 × 공장형 규모의 경제"<br>구로구 킹콩식자재마트 내 152평, 처방전 배제 비급여 특화 공장형 약국.</blockquote>
+
+  <h2>1.2 핵심 투자 지표 요약</h2>
+  <div class="table-wrap"><table>
+    <tr><th>항목</th><th>내용</th></tr>
+    <tr><td><strong>사업 형태</strong></td><td>킹콩식자재마트 구로점 內 숍인숍(Shop-in-Shop) 약국, 152평</td></tr>
+    <tr><td><strong>대표 (약사 면허)</strong></td><td>장모님 — 약사면허 보유, 개인사업자 명의, 前 종로프라자약국 운영 (20평, 일 100명)</td></tr>
+    <tr><td><strong>CFO</strong></td><td>권수진 — M&amp;A·법무·재무 백그라운드, 기본급 500만원 + 영업이익 15% 인센티브</td></tr>
+    <tr><td><strong>투자자</strong></td><td>허진영(사위) — 대여금 <strong>1억~1.5억원</strong>, 공정증서 + 질권 4중 보호</td></tr>
+    <tr><td><strong>실질 초기 자금</strong></td><td>목표 협상 기준 <strong>1억 6,520만원</strong> (Rent-free 3개월 절감 후)</td></tr>
+    <tr><td><strong>월 고정비</strong></td><td><strong>6,000만원</strong> (CFO 기본급 500만원 포함)</td></tr>
+    <tr><td><strong>영업이익률</strong></td><td>매출액의 <strong>40%</strong> (원가+변동비 60% 가정)</td></tr>
+    <tr><td><strong>운영 시작</strong></td><td><strong>2026년 7월</strong></td></tr>
+    <tr><td><strong>투자 회수 기간</strong></td><td><strong>2년 이내</strong> 완료 가능</td></tr>
+  </table></div>
+
+  <h2>1.3 수익 모델 개요 (처방전 완전 배제)</h2>
+  <pre>수익 구조 핵심
+────────────────────────────────────────────────────────
+처방전 조제 → 0% (완전 배제)
+
+[1] OTC 일반의약품   40%  │  마진율 35~40%  │ 박리다매
+[2] 건강기능식품     30%  │  마진율 45~55%  │ 고마진 상담판매
+[3] 비급여약         25%  │  순마진율 44%   │ 비만·탈모·피부
+[4] 반려동물 의약품   5%  │  마진율 40~50%  │ 틈새 고충성
+
+혼합 평균 순마진율: 43%
+────────────────────────────────────────────────────────</pre>
+  <blockquote class="success"><strong>비급여 커미션 구조:</strong> 약국 마진 50~60% → 제휴 병원 커미션(마진의 20%) 차감 → <strong>약국 순마진 44%</strong><br>처방전 없는 모델임에도 기존 처방전 포함 모델(39~42%) 대비 마진율 우위.</blockquote>
+
+  <h2>1.4 상권 투자 논거</h2>
+  <div class="table-wrap"><table>
+    <tr><th>입지 강점</th><th>리스크</th></tr>
+    <tr><td>킹콩마트 2026.04.07 신규 오픈 → 초기 공격적 마케팅 시너지</td><td>신규 마트 방문객 안정화까지 3~6개월 소요</td></tr>
+    <tr><td>기존 세계로마트 상권 인지도 + 구로디지털단지 유동인구</td><td>마트 폐점 시 집객력 90% 소멸 (계약서 해지권 삽입 필수)</td></tr>
+    <tr><td>152평 대형 공간 → 규모의 경제, 경쟁약국 차별화</td><td>반경 500m 내 창고형 약국 추가 출점 가능성</td></tr>
+    <tr><td>비급여 독립 집객 병행 가능 (마트 의존도 분산)</td><td>비급여 제휴 병원 초기 확보 지연 시 수익 구조 약화</td></tr>
+  </table></div>
+
+  <h2>1.5 장모님 가설 검증 요약</h2>
+  <div class="table-wrap"><table>
+    <tr><th>장모님 예상</th><th>보수 검증치</th><th>판단</th></tr>
+    <tr><td>일 방문객 200~300명</td><td>일 방문객 <strong>100~150명</strong> (정상 시나리오)</td><td>최우수 시나리오 수준, 비급여 제휴 성공 전제</td></tr>
+    <tr><td>객단가 5만~10만원</td><td>객단가 <strong>40,000원</strong> 기준 (신버전)</td><td>비급여 비중 25% 가정 시 현실적</td></tr>
+    <tr><td>월 순이익 1억+</td><td>S3(200명) 영업이익 <strong>9,600만원</strong></td><td>달성 가능, 단계적 성장 필요</td></tr>
+  </table></div>
+  <blockquote class="success"><strong>결론:</strong> 장모님의 예상치는 '최우수 시나리오'에 해당. 보수적 정상 시나리오(일 150명)부터 달성 후 단계적 확장이 현실적 접근법.</blockquote>
+
+  <h2>1.6 투자 안전 구조 (4중 레이어)</h2>
+  <pre>Layer 1: 금전소비대차 공정증서     → 원금 반환 청구권 (허진영)
+Layer 2: 임차보증금 반환채권 질권  → 보증금 우선 수취권
+Layer 3: 동업계약서 거부권·Exit    → 운영 통제권 (3개월 연속 적자 시 청산 개시)
+Layer 4: 사업중단보험 + 배상책임   → 손실 보전</pre>
+
+  <h2>1.7 주요 리스크 및 Go/Stop 기준</h2>
+  <div class="table-wrap"><table>
+    <tr><th>리스크 유형</th><th>수준</th><th>핵심 대응</th></tr>
+    <tr><td>킹콩마트 집객 부진 (일 300명 미만)</td><td>최고</td><td>개업 전 3개월 방문객 카운팅 필수</td></tr>
+    <tr><td>비급여 제휴 병원 미확보</td><td>높음</td><td>개업 전 1~2곳 사전 계약</td></tr>
+    <tr><td>창고형 경쟁 약국 출점</td><td>중간</td><td>독점 제휴·건기식 독점 브랜드 확보</td></tr>
+    <tr><td>장모님 건강 이슈</td><td>중간</td><td>대체 약사 Pool 2인+ 사전 확보</td></tr>
+    <tr><td>마트 폐점</td><td>최고</td><td>임대차계약 조기 해지·보증금 즉시 반환 조항 삽입</td></tr>
+  </table></div>
+  <blockquote><strong>Go 기준:</strong> 킹콩마트 일 방문객 400명 이상 + 비급여 병원 1곳 사전 협의 + 질권 동의 확보 → <strong>투자 실행</strong></blockquote>
+</section>
+
+<!-- CH02 -->
+<section id="ch02">
+  <h1>02. 상권 분석</h1>
+  <p class="chapter-meta">킹콩마트 구로점 &amp; 약국 입지 타당성 | 2026-05-08 전면 개정판</p>
+
+  <h2>2.1 입지 개요</h2>
+  <div class="table-wrap"><table>
+    <tr><th>항목</th><th>내용</th></tr>
+    <tr><td><strong>위치</strong></td><td>서울 구로구 구로동 킹콩식자재마트 구로점 내부</td></tr>
+    <tr><td><strong>마트 오픈일</strong></td><td><strong>2026년 4월 7일</strong> (신규 오픈)</td></tr>
+    <tr><td><strong>전신</strong></td><td>세계로마트 구로점 — 마트 공간 축소 분할 후 킹콩마트 입점</td></tr>
+    <tr><td><strong>약국 실면적</strong></td><td><strong>152평</strong> (약 502㎡)</td></tr>
+    <tr><td><strong>형태</strong></td><td>숍인숍(Shop-in-Shop) — 마트 입구 또는 전면 독립 구획</td></tr>
+    <tr><td><strong>주변 상권</strong></td><td>구로디지털단지역 도보권, 고척스카이돔 인근, 아파트 단지 혼재</td></tr>
+  </table></div>
+
+  <h2>2.2 킹콩마트 구로점 분석</h2>
+  <h3>킹콩마트 브랜드 현황</h3>
+  <p>킹콩마트(KingKong Mart)는 2020년대 중반 급성장한 <strong>회원제·창고형 식자재 마트</strong> 모델로, 대형 식자재와 가공식품을 저가·대용량으로 공급하는 방식을 취한다. 구로점은 <strong>기존 세계로마트가 점유하던 공간을 분할 재계약하여 입점</strong>한 것으로, 이전 세계로마트의 집객 인프라(주차장, 접근성, 상권 인지도)를 그대로 승계한다.</p>
+  <div class="table-wrap"><table>
+    <tr><th>구분</th><th>세계로마트 (前)</th><th>킹콩마트 (現, 2026.04.07~)</th></tr>
+    <tr><td>전체 영업 면적</td><td>~1,500평 추정</td><td>~900평 (약국 구획 제외 시)</td></tr>
+    <tr><td>타겟 고객</td><td>일반 소비자, 중소 자영업자</td><td>가족·주부·소규모 자영업자</td></tr>
+    <tr><td>집객 방식</td><td>식자재 품목 다양성</td><td>저가·대용량·회원 할인</td></tr>
+    <tr><td>브랜드 파워</td><td>지역 인지도 (기성)</td><td>전국 신규 확산 중</td></tr>
+  </table></div>
+
+  <h3>신규 오픈 효과 분석</h3>
+  <blockquote>신규 마트 오픈 시 첫 3~6개월은 오픈 마케팅(전단·SNS·지역 광고)으로 평시 대비 <strong>120~150% 방문객</strong> 유입이 일반적. 이 기간 약국도 동반 유입 효과 수혜 가능.</blockquote>
+  <blockquote class="warn"><strong>핵심 판단 기준:</strong> 개업 전 최소 3개월(2026년 7월~9월 기준) 실제 마트 방문객 카운팅 데이터 확보 필수. 이것이 투자 Go/Stop의 결정적 변수.</blockquote>
+
+  <h2>2.3 마트 일일 방문객 산출 모델</h2>
+  <h3>모델 A: 면적·유형 기반 추정</h3>
+  <div class="table-wrap"><table>
+    <tr><th>마트 유형</th><th>면적 기준</th><th>평일 일 방문객</th><th>주말 일 방문객</th><th>월 평균 환산</th></tr>
+    <tr><td>대형 (2,000평+)</td><td>코스트코·이마트</td><td>3,000~8,000명</td><td>5,000~10,000명</td><td>—</td></tr>
+    <tr><td>중대형 (800~2,000평)</td><td>킹콩·메가마트</td><td><strong>500~900명</strong></td><td><strong>800~1,200명</strong></td><td><strong>600~950명</strong></td></tr>
+    <tr><td>중소형 (300~800평)</td><td>지역 식자재마트</td><td>200~500명</td><td>400~700명</td><td>280~550명</td></tr>
+    <tr><td>소형 (~300평)</td><td>동네 마트</td><td>100~300명</td><td>200~500명</td><td>130~350명</td></tr>
+  </table></div>
+  <blockquote>킹콩마트 구로점(~900평 추정) → <strong>평일 평균 400~700명, 주말 600~1,000명</strong> → <strong>월 평균 500~750명/일</strong> 예상</blockquote>
+
+  <h3>모델 B: 유사 상권 벤치마크</h3>
+  <div class="table-wrap"><table>
+    <tr><th>사례</th><th>마트 유형</th><th>마트 면적</th><th>일 방문객</th><th>약국 전환율</th><th>약국 일 방문객</th></tr>
+    <tr><td>홈플러스 금천점 (메가팩토리 입점)</td><td>대형</td><td>2,000평+</td><td>3,000명+</td><td>5~8%</td><td>150~240명</td></tr>
+    <tr><td>이마트 성수점 (대형 약국 입점)</td><td>대형</td><td>3,000평</td><td>5,000명</td><td>4~6%</td><td>200~300명</td></tr>
+    <tr class="highlight"><td><strong>킹콩마트형 중대형 마트</strong></td><td><strong>중대형</strong></td><td><strong>~900평</strong></td><td><strong>500~750명</strong></td><td><strong>15~25%</strong></td><td><strong>75~188명</strong></td></tr>
+    <tr><td>지역 중형 식자재 마트</td><td>중형</td><td>~500평</td><td>300~500명</td><td>20~30%</td><td>60~150명</td></tr>
+  </table></div>
+  <blockquote class="success"><strong>결론:</strong> 킹콩마트 구로점 기준 일 방문객 <strong>500~750명</strong> 시나리오에서, 약국 전환율 <strong>20%</strong> 적용 시 약국 일 방문객 <strong>100~150명</strong> 달성 가능.</blockquote>
+
+  <h2>2.4 국내 약국 규모별 방문객 분류 분석</h2>
+  <div class="table-wrap"><table>
+    <tr><th>구분</th><th>면적</th><th>입지 유형</th><th>일 방문객</th><th>객단가</th><th>월 매출 추정</th></tr>
+    <tr><td><strong>소형</strong></td><td>10~30평</td><td>동네·역세권</td><td>50~100명</td><td>25,000~40,000원</td><td>3,250만~1억원</td></tr>
+    <tr><td><strong>중형</strong></td><td>30~80평</td><td>상업지구·복합시설</td><td>100~200명</td><td>35,000~55,000원</td><td>9,100만~2억 8,600만원</td></tr>
+    <tr><td><strong>대형</strong></td><td>80~150평</td><td>대형 마트·복합몰</td><td>200~350명</td><td>45,000~65,000원</td><td>2억 3,400만~5억 9,150만원</td></tr>
+    <tr class="highlight"><td><strong>초대형 (공장형)</strong></td><td>150평+</td><td>창고형 마트·독립형</td><td>300~500명+</td><td>50,000~75,000원</td><td>3억 9,000만~9억 7,500만원</td></tr>
+  </table></div>
+
+  <h2>2.5 경쟁 환경 분석</h2>
+  <div class="table-wrap"><table>
+    <tr><th>경쟁 유형</th><th>현황</th><th>위협도</th></tr>
+    <tr><td>일반 동네 약국 (반경 300m)</td><td>2~3개 추정</td><td>낮음 (규모 열위)</td></tr>
+    <tr><td>창고형·공장형 약국 출점</td><td>2026년 기준 미확인</td><td><strong>잠재 최고 위협</strong></td></tr>
+    <tr><td>온라인 약국 (비처방 OTC)</td><td>증가 중</td><td>중간 (건기식 일부 잠식)</td></tr>
+  </table></div>
+
+  <h2>2.6 입지 최종 평가</h2>
+  <div class="table-wrap"><table>
+    <tr><th>평가 항목</th><th>점수 (10점 만점)</th><th>비고</th></tr>
+    <tr><td>접근성 (교통·주차)</td><td>8/10</td><td>구로디지털단지역 인근, 자가용 접근 용이</td></tr>
+    <tr><td>마트 집객력 (현재)</td><td>6/10</td><td>신규 오픈, 안정화 미완료</td></tr>
+    <tr><td>마트 집객력 (잠재)</td><td>8/10</td><td>1년 이후 안정화 시 강점</td></tr>
+    <tr><td>경쟁 환경</td><td>8/10</td><td>현재 창고형 경쟁 없음</td></tr>
+    <tr><td>비급여 독립 집객 가능성</td><td>7/10</td><td>구로구 내 비만·탈모 클리닉 다수</td></tr>
+    <tr><td>면적·공간 활용</td><td>9/10</td><td>152평 대형 공간, 구획 자유도 높음</td></tr>
+    <tr class="highlight"><td><strong>종합 입지 점수</strong></td><td><strong>7.7/10</strong></td><td><strong>투자 권장 수준</strong></td></tr>
+  </table></div>
+  <blockquote class="success"><strong>최종 판단:</strong> 킹콩마트의 성공적인 안착 여부가 이 사업의 핵심 변수. 마트 방문객 현장 카운팅(최소 5일)을 통해 <strong>일 400명 이상 확인 시 투자 실행 권장</strong>.</blockquote>
+</section>
+
+<!-- CH03 -->
+<section id="ch03">
+  <h1>03. 수익 모델</h1>
+  <p class="chapter-meta">처방전 없는 비급여 특화 전략 | 2026-05-08 전면 개정판</p>
+
+  <h2>3.1 전략 방향: 왜 처방전을 배제하는가?</h2>
+  <pre>전통 약국 모델              vs.     공장형 비급여 모델
+─────────────────────────────────────────────────────
+처방전 조제 의존              →      처방전 완전 배제
+병원 트래픽 종속              →      마트 트래픽 + 독립 집객
+마진율 15~25% (보험 급여)     →      마진율 40~55%
+객단가 10,000~20,000원        →      객단가 45,000~75,000원
+일 방문객 상한 있음 (처방 건수)→      상한 없음 (쇼핑형 구매)
+─────────────────────────────────────────────────────</pre>
+
+  <h2>3.2 매출 믹스 전략</h2>
+  <div class="table-wrap"><table>
+    <tr><th>카테고리</th><th>비중</th><th>핵심 품목</th><th>약국 마진율</th><th>커미션</th><th>순마진율</th></tr>
+    <tr><td><strong>OTC 일반의약품</strong></td><td><strong>40%</strong></td><td>감기약·해열제·소화제·진통제</td><td>35~40%</td><td>없음</td><td><strong>35~40%</strong></td></tr>
+    <tr><td><strong>건강기능식품</strong></td><td><strong>30%</strong></td><td>오메가3·유산균·비타민D·마그네슘</td><td>45~55%</td><td>없음</td><td><strong>45~55%</strong></td></tr>
+    <tr><td><strong>비급여약</strong></td><td><strong>25%</strong></td><td>비만약·탈모약·피부약·발기부전약</td><td>50~60%</td><td>마진의 20%</td><td><strong>40~48%</strong></td></tr>
+    <tr><td><strong>반려동물 의약품</strong></td><td><strong>5%</strong></td><td>관절·면역·피부 보조제</td><td>40~50%</td><td>없음</td><td><strong>40~50%</strong></td></tr>
+  </table></div>
+
+  <h3>혼합 평균 순마진율 계산</h3>
+  <pre>혼합 마진율 산출
+────────────────────────────────────────────────
+OTC (40%) × 순마진 37.5%      =  15.0%
+건기식 (30%) × 순마진 50%     =  15.0%
+비급여약 (25%) × 순마진 44%   =  11.0%
+반려동물 (5%) × 순마진 45%    =   2.25%
+────────────────────────────────────────────────
+혼합 평균 순마진율             ≈  43.25%  →  43%
+────────────────────────────────────────────────</pre>
+  <blockquote class="success">처방전 없는 모델임에도 일반 처방조제 모델(순마진 38~42%)보다 <strong>마진율 우위</strong>.</blockquote>
+
+  <h2>3.3 비급여약 마진 구조 상세</h2>
+  <pre>비급여약 1만원 매출 기준
+────────────────────────────────────────────────────
+매출액                         10,000원 (100%)
+원가 (도매 매입가)               4,500원  (45%)
+────────────────────────────────────────────────────
+약국 그로스 마진                  5,500원  (55%)
+  ├ 제휴 병원 커미션 (마진의 20%)  1,100원  (11%)
+  └ 약국 순마진                   4,400원  (44%)
+────────────────────────────────────────────────────</pre>
+
+  <h3>주요 비급여 품목별 마진 구조</h3>
+  <div class="table-wrap"><table>
+    <tr><th>품목</th><th>매출 단가</th><th>원가율</th><th>그로스 마진율</th><th>커미션</th><th>약국 순마진</th></tr>
+    <tr><td>GLP-1 비만약 (삭센다·위고비 제네릭)</td><td>15,000~50,000원/앰플</td><td>45%</td><td>55%</td><td>11%</td><td><strong>44%</strong></td></tr>
+    <tr><td>탈모약 (피나스테리드·두타스테리드)</td><td>5,000~15,000원/정</td><td>40%</td><td>60%</td><td>12%</td><td><strong>48%</strong></td></tr>
+    <tr><td>미녹시딜 외용액</td><td>20,000~60,000원/박스</td><td>42%</td><td>58%</td><td>12%</td><td><strong>46%</strong></td></tr>
+    <tr><td>피부 비급여 (트레티노인·하이드로퀴논)</td><td>10,000~30,000원</td><td>45%</td><td>55%</td><td>11%</td><td><strong>44%</strong></td></tr>
+    <tr><td>발기부전약 (실데나필 제네릭)</td><td>5,000~20,000원/정</td><td>40%</td><td>60%</td><td>12%</td><td><strong>48%</strong></td></tr>
+  </table></div>
+  <blockquote class="warn"><strong>법적 주의:</strong> 의료기관에 커미션을 지급하는 구조는 의료법·약사법상 리베이트 규정과 저촉될 수 있음. <strong>반드시 의료 전문 변호사 자문을 통해 "마케팅 협력비" 등 적법한 계약 형태로 구성할 것.</strong></blockquote>
+
+  <h2>3.4 OTC 전략 — 공장형 가격 경쟁력</h2>
+  <div class="table-wrap"><table>
+    <tr><th>품목</th><th>일반 약국 소비자가</th><th>공장형 약국 소비자가</th><th>할인율</th></tr>
+    <tr><td>감기약 (판콜에이 10정)</td><td>3,800원</td><td>2,900원</td><td>-24%</td></tr>
+    <tr><td>해열제 (타이레놀 10정)</td><td>4,200원</td><td>3,200원</td><td>-24%</td></tr>
+    <tr><td>소화제 (베아제 10정)</td><td>5,500원</td><td>4,200원</td><td>-24%</td></tr>
+    <tr><td>종합비타민 (30캡슐)</td><td>12,000원</td><td>9,000원</td><td>-25%</td></tr>
+  </table></div>
+
+  <h2>3.5 건강기능식품 정기구독 패키지</h2>
+  <div class="table-wrap"><table>
+    <tr><th>패키지명</th><th>구성</th><th>월 구독가</th><th>마진</th></tr>
+    <tr><td>기본 건강</td><td>오메가3 + 비타민D + 유산균</td><td>49,000원</td><td>~58%</td></tr>
+    <tr><td>다이어트 케어</td><td>가르시니아 + L-카르니틴 + 식욕억제 건기식</td><td>89,000원</td><td>~54%</td></tr>
+    <tr><td>탈모 케어</td><td>판토가 + 미녹시딜 외용액 + 두피 영양제</td><td>120,000원</td><td>~46%</td></tr>
+    <tr><td>반려동물</td><td>강아지/고양이 관절·면역 영양제</td><td>39,000원</td><td>~54%</td></tr>
+  </table></div>
+</section>
+
+<!-- CH04 -->
+<section id="ch04">
+  <h1>04. 재무 계획</h1>
+  <p class="chapter-meta">CAPEX · OPEX · 임대 협상 · CFO 보상 | 2026-05-08 전면 개정판</p>
+
+  <h2>4.1 초기 투자비(CAPEX) 전체 계획</h2>
+  <h3>B. 인테리어 및 시설 투자 세부 항목 (152평 기준)</h3>
+  <div class="table-wrap"><table>
+    <tr><th>항목</th><th>목표 견적</th><th>보수 견적</th><th>단가 근거</th></tr>
+    <tr><td>약국 인테리어 공사 (기본)</td><td>2,500만원</td><td>3,500만원</td><td>152평 × 165~230만원/평</td></tr>
+    <tr><td>냉장 쇼케이스 (건기식·의약품)</td><td>600만원</td><td>900만원</td><td>6~9대 × 100만원</td></tr>
+    <tr><td>의약품 전용 냉장고</td><td>200만원</td><td>300만원</td><td>2~3대</td></tr>
+    <tr><td>POS 시스템 4대</td><td>400만원</td><td>600만원</td><td>약국 전용 소프트웨어 포함</td></tr>
+    <tr><td>약국 전산·ERP 시스템</td><td>200만원</td><td>300만원</td><td>재고·고객 데이터 통합</td></tr>
+    <tr><td>진열 선반·집기</td><td>400만원</td><td>600만원</td><td>금속 선반, 아크릴 진열대</td></tr>
+    <tr><td>간판·사인물·POP 디자인</td><td>300만원</td><td>500만원</td><td>외부 간판 + 내부 안내판</td></tr>
+    <tr><td>비급여 상담 부스</td><td>200만원</td><td>300만원</td><td>독립 상담 공간 구성</td></tr>
+    <tr><td>조명 공사</td><td>200만원</td><td>300만원</td><td>고조도 약국 특화 조명</td></tr>
+    <tr><td>CCTV·보안 시스템</td><td>100만원</td><td>200만원</td><td>약품 도난 방지</td></tr>
+    <tr><td>기타 잡비 (예비비)</td><td>300만원</td><td>500만원</td><td>공사 초과분</td></tr>
+    <tr class="highlight"><td><strong>소계 (인테리어·시설)</strong></td><td><strong>5,550만원</strong></td><td><strong>8,250만원</strong></td><td></td></tr>
+  </table></div>
+
+  <h3>E. 초기 투자비 총합 시나리오</h3>
+  <pre>초기 투자비 시나리오별 요약 (단위: 만원)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                              목표 협상      보수 시나리오
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+보증금                         1억 원         1억 5,000만
+인테리어·시설                  5,550만        8,250만
+초도 재고                       3,800만        6,000만
+법무·허가                         220만           335만
+예비 운영자금 (3개월 적자 대비)   1,500만        1,500만
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+합계                          2억 1,070만    3억 1,085만
+Rent-free 절감 (3개월/2개월)    -4,500만       -3,000만
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+실질 자금 소요                 1억 6,570만    2억 8,085만
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</pre>
+
+  <h2>4.2 월 운영비(OPEX) 상세 — 고정비 구조 (월 기준)</h2>
+  <div class="table-wrap"><table>
+    <tr><th>항목</th><th>1년차</th><th>2년차</th><th>3년차</th><th>산출 근거</th></tr>
+    <tr><td>월세 (관리비 포함)</td><td>1,500</td><td>1,500</td><td>1,500</td><td>순임대 1,044 + 관리비 456</td></tr>
+    <tr><td>장모님 약사비</td><td>500</td><td>500</td><td>500</td><td>급여형 (필요경비 처리)</td></tr>
+    <tr><td>근무약사 (주2일)</td><td>150</td><td>150</td><td>150</td><td>일 15만원 × 8일/월</td></tr>
+    <tr><td>권수진 CFO 기본급</td><td>500</td><td>500</td><td>500</td><td>성과급 별도 (신버전 500만원)</td></tr>
+    <tr><td>관리인원 3명</td><td>750</td><td>750</td><td>750</td><td>1인 250만원</td></tr>
+    <tr><td>전기·통신·보험</td><td>300</td><td>300</td><td>300</td><td>약국 전기요금 高</td></tr>
+    <tr><td>마케팅비</td><td>200</td><td>200</td><td>200</td><td>고정 집행</td></tr>
+    <tr><td>기타 관리비</td><td>350</td><td>350</td><td>350</td><td>소모품·청소 등</td></tr>
+    <tr class="highlight"><td><strong>합계</strong></td><td><strong>4,250</strong></td><td><strong>4,250</strong></td><td><strong>4,250</strong></td><td>※ 신버전 기준 6,000만원 (변동비 포함)</td></tr>
+  </table></div>
+
+  <h2>4.3 손익분기점 (BEP) 분석</h2>
+  <blockquote class="success">신버전(04_revenue.md) 기준: 영업이익률 40% 고정 가정으로 <strong>전 시나리오 흑자 구조</strong>. BEP 개념이 아닌 영업이익 극대화 모델로 전환.</blockquote>
+
+  <h2>4.4 권수진 CFO 보상 설계 (구버전 참고)</h2>
+  <div class="table-wrap"><table>
+    <tr><th>시나리오</th><th>영업이익</th><th>기본급</th><th>인센티브 (15%)</th><th>합계</th></tr>
+    <tr><td>1년차 (적응기)</td><td>-622만원</td><td>250만원</td><td>0원</td><td><strong>250만원</strong></td></tr>
+    <tr><td>2년차 (성장기)</td><td>3,258만원</td><td>250만원</td><td>489만원</td><td><strong>739만원</strong></td></tr>
+    <tr><td>3년차 (안정기)</td><td>7,584만원</td><td>250만원</td><td>1,138만원</td><td><strong>1,388만원</strong></td></tr>
+  </table></div>
+
+  <h2>4.5 허진영(사위) 투자 회수 구조</h2>
+  <div class="table-wrap"><table>
+    <tr><th>구분</th><th>내용</th></tr>
+    <tr><td>투자 형태</td><td>대여금 (금전소비대차) 1억~1.5억원, 무이자</td></tr>
+    <tr><td>원금 보호</td><td>공정증서 + 임차보증금 반환채권 질권 설정</td></tr>
+    <tr><td>원금 회수 시점</td><td>사업 종료 또는 Exit 시 우선 변제</td></tr>
+    <tr><td>거부권 행사</td><td>500만원 이상 지출, 추가 임대 계약 시 동의 필수</td></tr>
+    <tr><td>Exit 옵션</td><td>3년 후 영업권 매각 (영업이익 × 24~36개월 = <strong>7.2억~10.8억원</strong>)</td></tr>
+    <tr><td>3개월 연속 적자 시</td><td>청산 절차 개시 권리</td></tr>
+  </table></div>
+</section>
+
+<!-- CH04B — 핵심 업데이트 -->
+<section id="ch04b">
+  <h1>04B. 매출 시나리오 <span class="badge-new">2026-05-14 신규</span></h1>
+  <p class="chapter-meta">객단가 40,000원 기준 7개 시나리오 + CFO 보상 3구조 + 2026.07~ 월별 통계</p>
+
+  <h2>4.1 핵심 가정 (공통)</h2>
+  <div class="table-wrap"><table>
+    <tr><th>항목</th><th>값</th><th>비고</th></tr>
+    <tr><td>객단가</td><td><strong>40,000원</strong></td><td>전 시나리오 동일</td></tr>
+    <tr><td>월 영업일수</td><td><strong>30일</strong></td><td></td></tr>
+    <tr><td>월 고정비</td><td><strong>6,000만원</strong></td><td>CFO 기본급 500만원 포함</td></tr>
+    <tr><td>영업이익률</td><td><strong>매출액의 40%</strong></td><td>원가+변동비 60% 가정</td></tr>
+    <tr><td>약국 운영 시작</td><td><strong>2026년 7월</strong></td><td></td></tr>
+  </table></div>
+
+  <h2>4.2 매출 시나리오별 영업이익 (7개 시나리오)</h2>
+  <div class="table-wrap"><table>
+    <tr><th>시나리오</th><th>일 방문객</th><th>일 매출액</th><th>월 매출액</th><th>영업이익 (40%)</th></tr>
+    <tr><td>S1</td><td>100명</td><td>400만원</td><td><strong>1억 2,000만원</strong></td><td><strong>4,800만원</strong></td></tr>
+    <tr><td>S2</td><td>150명</td><td>600만원</td><td><strong>1억 8,000만원</strong></td><td><strong>7,200만원</strong></td></tr>
+    <tr><td>S3</td><td>200명</td><td>800만원</td><td><strong>2억 4,000만원</strong></td><td><strong>9,600만원</strong></td></tr>
+    <tr><td>S4</td><td>250명</td><td>1,000만원</td><td><strong>3억 0,000만원</strong></td><td><strong>1억 2,000만원</strong></td></tr>
+    <tr><td>S5</td><td>300명</td><td>1,200만원</td><td><strong>3억 6,000만원</strong></td><td><strong>1억 4,400만원</strong></td></tr>
+    <tr><td>S6</td><td>400명</td><td>1,600만원</td><td><strong>4억 8,000만원</strong></td><td><strong>1억 9,200만원</strong></td></tr>
+    <tr class="highlight"><td>S7</td><td>500명</td><td>2,000만원</td><td><strong>6억 0,000만원</strong></td><td><strong>2억 4,000만원</strong></td></tr>
+  </table></div>
+  <blockquote>영업이익 = 월 매출액 × 40% (고정비 6,000만원 포함한 순 영업이익 기준)</blockquote>
+
+  <h2>4.3 CFO 보상 구조 (3개 옵션)</h2>
+  <p>CFO 기본급 500만원은 고정비(6,000만원)에 포함. 아래는 영업이익 분배 비율만 비교.</p>
+  <div class="table-wrap"><table>
+    <tr><th>CFO 구조</th><th>기본급 (고정비 포함)</th><th>영업이익 지분</th><th>특징</th></tr>
+    <tr><td><strong>CFO-A</strong></td><td>500만원/월</td><td><strong>20%</strong></td><td>고성과 인센티브 중심</td></tr>
+    <tr><td><strong>CFO-B</strong></td><td>500만원/월</td><td><strong>10%</strong></td><td>보수적·안정 구조</td></tr>
+    <tr class="highlight"><td><strong>CFO-C</strong></td><td>500만원/월</td><td><strong>15%</strong></td><td>균형 구조 (권장)</td></tr>
+  </table></div>
+
+  <h2>4.4 매출 × CFO 보상 교차 시뮬레이션 (월 기준)</h2>
+  <blockquote><strong>CFO 월 수령액 = 기본급 500만원 + (영업이익 × 지분율)</strong></blockquote>
+  <div class="table-wrap"><table>
+    <tr><th>시나리오</th><th>월 매출</th><th>영업이익</th><th>CFO-A 총액 (500+20%)</th><th>CFO-B 총액 (500+10%)</th><th>CFO-C 총액 (500+15%)</th></tr>
+    <tr><td>S1 (100명)</td><td>1.2억</td><td>4,800만원</td><td><strong>1,460만원</strong></td><td><strong>980만원</strong></td><td><strong>1,220만원</strong></td></tr>
+    <tr><td>S2 (150명)</td><td>1.8억</td><td>7,200만원</td><td><strong>1,940만원</strong></td><td><strong>1,220만원</strong></td><td><strong>1,580만원</strong></td></tr>
+    <tr><td>S3 (200명)</td><td>2.4억</td><td>9,600만원</td><td><strong>2,420만원</strong></td><td><strong>1,460만원</strong></td><td><strong>1,940만원</strong></td></tr>
+    <tr><td>S4 (250명)</td><td>3.0억</td><td>1억 2,000만원</td><td><strong>2,900만원</strong></td><td><strong>1,700만원</strong></td><td><strong>2,300만원</strong></td></tr>
+    <tr><td>S5 (300명)</td><td>3.6억</td><td>1억 4,400만원</td><td><strong>3,380만원</strong></td><td><strong>1,940만원</strong></td><td><strong>2,660만원</strong></td></tr>
+    <tr><td>S6 (400명)</td><td>4.8억</td><td>1억 9,200만원</td><td><strong>4,340만원</strong></td><td><strong>2,420만원</strong></td><td><strong>3,380만원</strong></td></tr>
+    <tr class="highlight"><td>S7 (500명)</td><td>6.0억</td><td>2억 4,000만원</td><td><strong>5,300만원</strong></td><td><strong>2,900만원</strong></td><td><strong>4,100만원</strong></td></tr>
+  </table></div>
+
+  <h2>4.5 월별 매출 통계 (2026년 7월 ~ 2027년 6월)</h2>
+
+  <h3>S1 시나리오 (일 방문객 100명)</h3>
+  <div class="table-wrap"><table>
+    <tr><th>월</th><th>월 매출</th><th>영업이익</th><th>CFO-A</th><th>CFO-B</th><th>CFO-C</th><th>누적 매출</th><th>누적 영업이익</th></tr>
+    <tr><td>2026년 7월</td><td>1억 2,000만원</td><td>4,800만원</td><td>1,460만원</td><td>980만원</td><td>1,220만원</td><td>1억 2,000만원</td><td>4,800만원</td></tr>
+    <tr><td>2026년 8월</td><td>1억 2,000만원</td><td>4,800만원</td><td>1,460만원</td><td>980만원</td><td>1,220만원</td><td>2억 4,000만원</td><td>9,600만원</td></tr>
+    <tr><td>2026년 9월</td><td>1억 2,000만원</td><td>4,800만원</td><td>1,460만원</td><td>980만원</td><td>1,220만원</td><td>3억 6,000만원</td><td>1억 4,400만원</td></tr>
+    <tr><td>2026년 10월</td><td>1억 2,000만원</td><td>4,800만원</td><td>1,460만원</td><td>980만원</td><td>1,220만원</td><td>4억 8,000만원</td><td>1억 9,200만원</td></tr>
+    <tr><td>2026년 11월</td><td>1억 2,000만원</td><td>4,800만원</td><td>1,460만원</td><td>980만원</td><td>1,220만원</td><td>6억 0,000만원</td><td>2억 4,000만원</td></tr>
+    <tr><td>2026년 12월</td><td>1억 2,000만원</td><td>4,800만원</td><td>1,460만원</td><td>980만원</td><td>1,220만원</td><td>7억 2,000만원</td><td>2억 8,800만원</td></tr>
+    <tr><td>2027년 1월</td><td>1억 2,000만원</td><td>4,800만원</td><td>1,460만원</td><td>980만원</td><td>1,220만원</td><td>8억 4,000만원</td><td>3억 3,600만원</td></tr>
+    <tr><td>2027년 2월</td><td>1억 2,000만원</td><td>4,800만원</td><td>1,460만원</td><td>980만원</td><td>1,220만원</td><td>9억 6,000만원</td><td>3억 8,400만원</td></tr>
+    <tr><td>2027년 3월</td><td>1억 2,000만원</td><td>4,800만원</td><td>1,460만원</td><td>980만원</td><td>1,220만원</td><td>10억 8,000만원</td><td>4억 3,200만원</td></tr>
+    <tr><td>2027년 4월</td><td>1억 2,000만원</td><td>4,800만원</td><td>1,460만원</td><td>980만원</td><td>1,220만원</td><td>12억 0,000만원</td><td>4억 8,000만원</td></tr>
+    <tr><td>2027년 5월</td><td>1억 2,000만원</td><td>4,800만원</td><td>1,460만원</td><td>980만원</td><td>1,220만원</td><td>13억 2,000만원</td><td>5억 2,800만원</td></tr>
+    <tr><td>2027년 6월</td><td>1억 2,000만원</td><td>4,800만원</td><td>1,460만원</td><td>980만원</td><td>1,220만원</td><td>14억 4,000만원</td><td>5억 7,600만원</td></tr>
+    <tr class="total"><td><strong>12개월 합계</strong></td><td><strong>14억 4,000만원</strong></td><td><strong>5억 7,600만원</strong></td><td><strong>1억 7,520만원</strong></td><td><strong>1억 1,760만원</strong></td><td><strong>1억 4,640만원</strong></td><td></td><td></td></tr>
+  </table></div>
+
+  <h3>S2 시나리오 (일 방문객 150명)</h3>
+  <div class="table-wrap"><table>
+    <tr><th>월</th><th>월 매출</th><th>영업이익</th><th>CFO-A</th><th>CFO-B</th><th>CFO-C</th><th>누적 매출</th><th>누적 영업이익</th></tr>
+    <tr><td>2026년 7월</td><td>1억 8,000만원</td><td>7,200만원</td><td>1,940만원</td><td>1,220만원</td><td>1,580만원</td><td>1억 8,000만원</td><td>7,200만원</td></tr>
+    <tr><td>2026년 8월</td><td>1억 8,000만원</td><td>7,200만원</td><td>1,940만원</td><td>1,220만원</td><td>1,580만원</td><td>3억 6,000만원</td><td>1억 4,400만원</td></tr>
+    <tr><td>2026년 9월</td><td>1억 8,000만원</td><td>7,200만원</td><td>1,940만원</td><td>1,220만원</td><td>1,580만원</td><td>5억 4,000만원</td><td>2억 1,600만원</td></tr>
+    <tr><td>2026년 10월</td><td>1억 8,000만원</td><td>7,200만원</td><td>1,940만원</td><td>1,220만원</td><td>1,580만원</td><td>7억 2,000만원</td><td>2억 8,800만원</td></tr>
+    <tr><td>2026년 11월</td><td>1억 8,000만원</td><td>7,200만원</td><td>1,940만원</td><td>1,220만원</td><td>1,580만원</td><td>9억 0,000만원</td><td>3억 6,000만원</td></tr>
+    <tr><td>2026년 12월</td><td>1억 8,000만원</td><td>7,200만원</td><td>1,940만원</td><td>1,220만원</td><td>1,580만원</td><td>10억 8,000만원</td><td>4억 3,200만원</td></tr>
+    <tr><td>2027년 1월</td><td>1억 8,000만원</td><td>7,200만원</td><td>1,940만원</td><td>1,220만원</td><td>1,580만원</td><td>12억 6,000만원</td><td>5억 400만원</td></tr>
+    <tr><td>2027년 2월</td><td>1억 8,000만원</td><td>7,200만원</td><td>1,940만원</td><td>1,220만원</td><td>1,580만원</td><td>14억 4,000만원</td><td>5억 7,600만원</td></tr>
+    <tr><td>2027년 3월</td><td>1억 8,000만원</td><td>7,200만원</td><td>1,940만원</td><td>1,220만원</td><td>1,580만원</td><td>16억 2,000만원</td><td>6억 4,800만원</td></tr>
+    <tr><td>2027년 4월</td><td>1억 8,000만원</td><td>7,200만원</td><td>1,940만원</td><td>1,220만원</td><td>1,580만원</td><td>18억 0,000만원</td><td>7억 2,000만원</td></tr>
+    <tr><td>2027년 5월</td><td>1억 8,000만원</td><td>7,200만원</td><td>1,940만원</td><td>1,220만원</td><td>1,580만원</td><td>19억 8,000만원</td><td>7억 9,200만원</td></tr>
+    <tr><td>2027년 6월</td><td>1억 8,000만원</td><td>7,200만원</td><td>1,940만원</td><td>1,220만원</td><td>1,580만원</td><td>21억 6,000만원</td><td>8억 6,400만원</td></tr>
+    <tr class="total"><td><strong>12개월 합계</strong></td><td><strong>21억 6,000만원</strong></td><td><strong>8억 6,400만원</strong></td><td><strong>2억 3,280만원</strong></td><td><strong>1억 4,640만원</strong></td><td><strong>1억 8,960만원</strong></td><td></td><td></td></tr>
+  </table></div>
+
+  <h3>S3 ~ S7 시나리오 12개월 요약</h3>
+  <div class="table-wrap"><table>
+    <tr><th>시나리오</th><th>월 매출</th><th>월 영업이익</th><th>연간 매출</th><th>연간 영업이익</th><th>CFO-A 연간</th><th>CFO-B 연간</th><th>CFO-C 연간</th></tr>
+    <tr><td>S3 (200명)</td><td>2.4억</td><td>9,600만원</td><td>28억 8,000만원</td><td>11억 5,200만원</td><td>2억 9,040만원</td><td>1억 7,520만원</td><td>2억 3,280만원</td></tr>
+    <tr><td>S4 (250명)</td><td>3.0억</td><td>1억 2,000만원</td><td>36억 0,000만원</td><td>14억 4,000만원</td><td>3억 4,800만원</td><td>2억 400만원</td><td>2억 7,600만원</td></tr>
+    <tr><td>S5 (300명)</td><td>3.6억</td><td>1억 4,400만원</td><td>43억 2,000만원</td><td>17억 2,800만원</td><td>4억 560만원</td><td>2억 3,280만원</td><td>3억 1,920만원</td></tr>
+    <tr><td>S6 (400명)</td><td>4.8억</td><td>1억 9,200만원</td><td>57억 6,000만원</td><td>23억 400만원</td><td>5억 2,080만원</td><td>2억 9,040만원</td><td>4억 560만원</td></tr>
+    <tr class="highlight"><td>S7 (500명)</td><td>6.0억</td><td>2억 4,000만원</td><td>72억 0,000만원</td><td>28억 8,000만원</td><td>6억 3,600만원</td><td>3억 4,800만원</td><td>4억 9,200만원</td></tr>
+  </table></div>
+
+  <h2>4.6 전체 시나리오 연간 비교 요약</h2>
+  <div class="table-wrap"><table>
+    <tr><th>시나리오</th><th>일 방문객</th><th>연간 매출</th><th>연간 영업이익</th><th>CFO-C 연간 수령 (권장)</th></tr>
+    <tr><td>S1</td><td>100명</td><td>14.4억</td><td>5.76억</td><td>1.46억</td></tr>
+    <tr><td>S2</td><td>150명</td><td>21.6억</td><td>8.64억</td><td>1.90억</td></tr>
+    <tr><td>S3</td><td>200명</td><td>28.8억</td><td>11.52억</td><td>2.33억</td></tr>
+    <tr><td>S4</td><td>250명</td><td>36.0억</td><td>14.40억</td><td>2.76억</td></tr>
+    <tr><td>S5</td><td>300명</td><td>43.2억</td><td>17.28억</td><td>3.19억</td></tr>
+    <tr><td>S6</td><td>400명</td><td>57.6억</td><td>23.04억</td><td>4.06억</td></tr>
+    <tr class="highlight"><td>S7</td><td>500명</td><td>72.0억</td><td>28.80억</td><td>4.92억</td></tr>
+  </table></div>
+  <blockquote class="success"><strong>운영 시작:</strong> 2026년 7월 | 손익분기점(BEP) 없음 — 영업이익률 40% 고정 가정으로 전 시나리오 흑자 구조.</blockquote>
+</section>
+
+<!-- CH05 -->
+<section id="ch05">
+  <h1>05. 마케팅 전략</h1>
+  <p class="chapter-meta">예산 · 채널 · ROI | 2026-05-08 전면 개정판</p>
+
+  <h2>5.1 마케팅 전략 개요</h2>
+  <pre>마케팅 2축 전략
+────────────────────────────────────────────────────────────
+축 1: 인바운드 전환 극대화 (마트 트래픽 활용)
+       → 약국 파사드·POP 마케팅으로 마트 동선에서 자연 유입
+       → 마트 공동 프로모션 이벤트 (쿠폰 교환, 공동 할인행사)
+       → 목표: 마트 방문객 전환율 15% → 25% 끌어올리기
+
+축 2: 아웃바운드 독립 집객 (마트 의존도 분산)
+       → SNS·네이버 검색광고로 비급여 예약 상담 고객 직접 유치
+       → 제휴 병원 처방 → 약국 연계 시스템 구축
+       → 목표: 일 방문객 중 독립 집객 비중 30% 이상
+────────────────────────────────────────────────────────────</pre>
+
+  <h2>5.2 오픈 마케팅 전략 (M-0 ~ M+3)</h2>
+  <div class="table-wrap"><table>
+    <tr><th>이벤트명</th><th>내용</th><th>기대 효과</th><th>예산</th></tr>
+    <tr><td><strong>균일가 이벤트</strong></td><td>인기 OTC·비타민 5,000원 균일가 (3일)</td><td>초기 유입 극대화, SNS 입소문</td><td>50~100만원</td></tr>
+    <tr><td><strong>건기식 시음 부스</strong></td><td>브랜드사 협찬 건기식 시음·샘플 증정</td><td>건기식 인지도 + 0원 비용</td><td>0원 (협찬)</td></tr>
+    <tr><td><strong>비급여 무료 상담</strong></td><td>비만·탈모 1:1 무료 상담 (예약제, 10명/일)</td><td>비급여 잠재 고객 발굴</td><td>0원</td></tr>
+    <tr><td><strong>반려동물 존 기념</strong></td><td>반려동물 간식 증정 (방문객 한정 100명)</td><td>반려인 고객 유입</td><td>20~30만원</td></tr>
+    <tr><td><strong>마트 공동 쿠폰</strong></td><td>킹콩마트 구매 영수증 → 약국 5% 할인</td><td>마트↔약국 트래픽 교환</td><td>협찬 협의</td></tr>
+    <tr><td><strong>SNS 바이럴 이벤트</strong></td><td>약국 방문 인증샷 → 경품 추첨</td><td>SNS 확산, 인지도 확보</td><td>30~50만원</td></tr>
+  </table></div>
+
+  <h2>5.3 디지털·SNS 채널 전략</h2>
+  <div class="table-wrap"><table>
+    <tr><th>채널</th><th>전략</th><th>목표 KPI</th><th>월 예산</th></tr>
+    <tr><td><strong>인스타그램</strong></td><td>건기식 리뷰·비급여 상담 후기·약사 일상 숏폼</td><td>팔로워 1,000명 (M+6)</td><td>30~50만원</td></tr>
+    <tr><td><strong>네이버 블로그</strong></td><td>"구로 약국 추천", "GLP-1 비만약" 등 SEO 키워드 공략</td><td>월간 블로그 방문자 500명</td><td>20~30만원</td></tr>
+    <tr><td><strong>네이버 플레이스</strong></td><td>약국 등록·리뷰 관리·사진 최적화</td><td>지역 약국 플레이스 TOP 3</td><td>0원</td></tr>
+    <tr><td><strong>카카오채널</strong></td><td>1:1 상담 예약·재고 문의·이벤트 알림</td><td>구독자 500명 (M+6)</td><td>0원</td></tr>
+    <tr><td><strong>네이버 지역 광고</strong></td><td>"구로 약국", "구로디지털단지 약국" 검색광고</td><td>CPC 월 신규 방문자 200명</td><td>30~50만원</td></tr>
+    <tr><td><strong>유튜브 쇼츠</strong></td><td>"약사가 알려주는 비만약 복용법" 등 전문 콘텐츠</td><td>누적 조회 10만 (1년 내)</td><td>20~30만원</td></tr>
+  </table></div>
+
+  <h2>5.4 멤버십·로열티 프로그램</h2>
+  <div class="table-wrap"><table>
+    <tr><th>등급</th><th>기준</th><th>혜택</th><th>목표 회원 수</th></tr>
+    <tr><td>일반</td><td>가입 무료</td><td>생일 쿠폰, 신상품 알림</td><td>무제한</td></tr>
+    <tr><td>실버</td><td>월 구매 5만원+</td><td>3% 추가 할인 + 샘플 증정</td><td>500명 (M+12)</td></tr>
+    <tr><td>골드</td><td>월 구매 20만원+</td><td>7% 할인 + 약사 1:1 상담 우선권</td><td>100명 (M+12)</td></tr>
+    <tr class="highlight"><td>VIP</td><td>월 구매 50만원+ (비급여 포함)</td><td>10% 할인 + 홈배송 + 우선 예약</td><td>20명 (M+12)</td></tr>
+  </table></div>
+
+  <h2>5.5 마케팅 예산 및 ROI</h2>
+  <div class="table-wrap"><table>
+    <tr><th>항목</th><th>월 예산</th><th>연간</th><th>비고</th></tr>
+    <tr><td>SNS 유료 광고 (인스타·페이스북)</td><td>50만원</td><td>600만원</td><td>메타 광고</td></tr>
+    <tr><td>네이버 지역 검색 광고</td><td>40만원</td><td>480만원</td><td>CPC</td></tr>
+    <tr><td>콘텐츠 제작 (사진·쇼츠 영상)</td><td>30만원</td><td>360만원</td><td>프리랜서</td></tr>
+    <tr><td>오프라인 POP·현수막·인쇄물</td><td>30만원</td><td>360만원</td><td>계절 교체</td></tr>
+    <tr><td>이벤트·프로모션 비용</td><td>30만원</td><td>360만원</td><td>월간 특가</td></tr>
+    <tr><td>기타 (구글·카카오 광고 등)</td><td>20만원</td><td>240만원</td><td></td></tr>
+    <tr class="highlight"><td><strong>합계</strong></td><td><strong>200만원</strong></td><td><strong>2,400만원</strong></td><td></td></tr>
+  </table></div>
+</section>
+
+<!-- CH06 -->
+<section id="ch06">
+  <h1>06. 법적 고려사항 및 계약 체계</h1>
+  <p class="chapter-meta">2026-05-08 전면 개정판</p>
+
+  <h2>6.1 투자금 보호 4중 레이어</h2>
+  <pre>┌─────────────────────────────────────────────┐
+│  Layer 1: 금전소비대차계약 (공정증서)          │  원금 반환 청구권
+├─────────────────────────────────────────────┤
+│  Layer 2: 임차보증금 반환채권 질권 설정       │  보증금 우선 수취권
+├─────────────────────────────────────────────┤
+│  Layer 3: 동업계약서 (거부권·Exit 조항)      │  운영 통제권
+├─────────────────────────────────────────────┤
+│  Layer 4: 사업중단보험 + 배상책임보험        │  손실 보전
+└─────────────────────────────────────────────┘</pre>
+
+  <h2>6.2 Layer 1 — 금전소비대차계약 (무이자)</h2>
+  <pre>계약 구조
+────────────────────────────────────────────
+대여자  : 허진영 (사위)
+차용자  : 장모님 (약사, 개인사업자)
+금액    : 1억~1.5억원 (협상 결과 확정)
+이자    : 무이자
+만기    : 사업 종료 시 또는 5년
+공증    : 공정증서 필수 (법무사 또는 공증인)
+────────────────────────────────────────────</pre>
+
+  <h3>증여세 리스크 분석</h3>
+  <div class="table-wrap"><table>
+    <tr><th>항목</th><th>수치</th></tr>
+    <tr><td>무이자 1억원 → 연 이자 상당액</td><td>1억 × 4.6% = <strong>460만원/년</strong></td></tr>
+    <tr><td>무이자 1.5억원 → 연 이자 상당액</td><td>1.5억 × 4.6% = <strong>690만원/년</strong></td></tr>
+    <tr><td>과세 최저한</td><td><strong>1,000만원</strong></td></tr>
+    <tr class="highlight"><td><strong>과세 여부</strong></td><td><strong>증여세 과세 없음</strong></td></tr>
+  </table></div>
+
+  <h2>6.3 Layer 3 — 동업계약서 핵심 조항</h2>
+  <div class="table-wrap"><table>
+    <tr><th>조항</th><th>내용</th></tr>
+    <tr><td><strong>투자금 인정</strong></td><td>허진영의 대여금 = 사업의 실질 투자금으로 명시</td></tr>
+    <tr><td><strong>원금 우선 보호</strong></td><td>폐업 시 보증금 반환액 中 허진영에게 우선 변제</td></tr>
+    <tr><td><strong>이익 배분</strong></td><td>권수진 CFO 인센티브(영업이익 15%) 구조 명시</td></tr>
+    <tr><td><strong>거부권 (Veto)</strong></td><td>월세 외 추가 임대·<strong>500만원 이상 지출</strong> 시 허진영 동의 필수</td></tr>
+    <tr><td><strong>Exit 조건</strong></td><td>3개월 연속 적자 시 허진영 요청으로 <strong>청산 절차 개시</strong></td></tr>
+    <tr><td><strong>정보 공유</strong></td><td>매출·지출 내역 CFO(권수진)에게 <strong>실시간 공유 의무</strong></td></tr>
+  </table></div>
+
+  <h2>6.4 약사(장모님) ↔ 건물주(킹콩마트) 임대차계약 필수 특약</h2>
+  <div class="table-wrap"><table>
+    <tr><th>특약 조항</th><th>내용</th><th>중요도</th></tr>
+    <tr><td><strong>마트 폐점 조기 해지권</strong></td><td>"킹콩마트 구로점 영업 중단 시 임차인 즉시 해지 가능, 보증금 전액 반환"</td><td>최우선</td></tr>
+    <tr><td><strong>보증금 반환 계좌 지정</strong></td><td>"계약 종료 시 보증금을 허진영 계좌로 반환"</td><td>최우선</td></tr>
+    <tr><td><strong>임대인 질권 동의</strong></td><td>"임차인의 보증금 반환채권에 대한 질권 설정을 임대인이 동의함"</td><td>최우선</td></tr>
+    <tr><td><strong>방문객 보장 재협상권</strong></td><td>"마트 3개월 평균 일 방문객 400명 미만 지속 시 임차인 월세 재협상 요청권 부여"</td><td>중요</td></tr>
+    <tr><td><strong>Rent-free 기간</strong></td><td>"인테리어 공사 기간 ___개월간 임대료 면제 (관리비 포함)"</td><td>중요</td></tr>
+  </table></div>
+
+  <h2>6.5 비급여 제휴 병원 계약 — 법적 리스크 및 방지 장치</h2>
+  <blockquote class="warn"><strong>핵심 주의사항:</strong> 의료기관·약국 간 경제적 이익 수수는 의료법 제23조의2(리베이트 수수 금지)·약사법 제47조의2의 규제 대상이 될 수 있다.</blockquote>
+  <div class="table-wrap"><table>
+    <tr><th>리스크</th><th>방지 방법</th></tr>
+    <tr><td>처방 유도 대가 성격의 커미션</td><td>"마케팅 협력비" 명목, 실제 공동 마케팅 활동 증빙 첨부</td></tr>
+    <tr><td>현금성 리베이트 의심</td><td>반드시 세금계산서 발행 + 계좌이체 기록 유지</td></tr>
+    <tr><td>처방 내용 개입</td><td>약국이 특정 의약품 처방 요청하는 것 금지</td></tr>
+    <tr><td>계약 형태</td><td>의료 전문 변호사·법무사 자문 후 적법한 형태 확정</td></tr>
+  </table></div>
+
+  <h2>6.6 세금 최적화 구조</h2>
+  <div class="table-wrap"><table>
+    <tr><th>주체</th><th>소득 형태</th><th>세율</th><th>절세 포인트</th></tr>
+    <tr><td><strong>장모님</strong></td><td>사업소득 (약국)</td><td>종합소득세 15~35%</td><td>장모님 급여 500만원 → 필요경비 처리로 과세표준 절감</td></tr>
+    <tr><td><strong>권수진</strong></td><td>용역소득 (경영자문료)</td><td>3.3% 원천징수 후 종합소득세 신고</td><td>사업자등록 시 VAT 매입공제 + 필요경비 처리 가능</td></tr>
+    <tr><td><strong>허진영</strong></td><td>이자소득 없음 (무이자 대여)</td><td>해당 없음</td><td>증여세 과세 기준(연 460~690만원) 이하, 과세 없음</td></tr>
+  </table></div>
+
+  <h2>6.7 보험 설계 (Layer 4)</h2>
+  <div class="table-wrap"><table>
+    <tr><th>보험 종류</th><th>용도</th><th>월 보험료 추정</th></tr>
+    <tr><td><strong>약사 배상책임보험</strong></td><td>조제·상담 사고 법적 대응</td><td>5~10만원</td></tr>
+    <tr><td><strong>사업장 화재·재물보험</strong></td><td>약품·집기 손해 보전</td><td>10~15만원</td></tr>
+    <tr><td><strong>사업중단보험</strong></td><td>장모님 입원 시 고정비(6,000만원/월) 보전</td><td>20~30만원</td></tr>
+    <tr class="highlight"><td><strong>합계</strong></td><td></td><td><strong>약 35~55만원/월</strong></td></tr>
+  </table></div>
+</section>
+
+<!-- CH07 -->
+<section id="ch07">
+  <h1>07. 산업 레퍼런스</h1>
+  <p class="chapter-meta">공장형 약국 심층 분석 &amp; 언론 동향 10선 | 2026-05-08 전면 개정판</p>
+
+  <h2>7.1 공장형 약국 개요 및 정의</h2>
+  <pre>공장형 약국의 3대 특성
+────────────────────────────────────────────────────
+1. 규모의 경제: 100~870평 대형 공간, 5,000~10,000+ SKU
+2. 저가 경쟁력: 대량 매입→ OTC 일반 약국 대비 10~40% 저렴
+3. 트래픽 기생: 마트·대형 유통시설 방문객의 자연 유입 의존
+────────────────────────────────────────────────────</pre>
+
+  <h2>7.2 메가팩토리약국 심층 분석</h2>
+  <h3>주요 지점별 성과 분석</h3>
+  <div class="table-wrap"><table>
+    <tr><th>지점</th><th>면적</th><th>입지</th><th>일 방문객</th><th>월 매출 추정</th><th>특징</th></tr>
+    <tr><td><strong>금천점 (홈플러스 內)</strong></td><td><strong>870평</strong></td><td>대형 마트</td><td><strong>500~800명</strong></td><td><strong>8~15억원</strong></td><td>최대 규모, OTC 品목 40% 저렴</td></tr>
+    <tr><td><strong>성남점</strong></td><td>500평</td><td>창고형 복합몰</td><td><strong>300~500명</strong></td><td><strong>5~9억원</strong></td><td>건기식·비급여 비중 높음</td></tr>
+    <tr><td><strong>수원점</strong></td><td>350평</td><td>이마트 트레이더스 內</td><td><strong>250~400명</strong></td><td><strong>4~7억원</strong></td><td>오픈 3개월 내 BEP 달성</td></tr>
+    <tr><td><strong>인천점</strong></td><td>280평</td><td>지역 대형 마트</td><td><strong>150~250명</strong></td><td><strong>2.5~4억원</strong></td><td>비급여 제휴 모델 적극 적용</td></tr>
+  </table></div>
+  <blockquote>위 수치는 공개된 언론 보도·업계 추정치 기반이며, 공식 재무 공시 데이터가 아님. ±30% 오차 범위 감안 필요.</blockquote>
+
+  <h3>메가팩토리 성공 요인 5가지</h3>
+  <div class="table-wrap"><table>
+    <tr><th>성공 요인</th><th>상세 내용</th></tr>
+    <tr><td><strong>대형 마트 트래픽 활용</strong></td><td>홈플러스 하루 3,000~5,000명 방문객 중 10~15%를 약국으로 전환</td></tr>
+    <tr><td><strong>가격 투명성</strong></td><td>모든 품목 가격표 노출, "동네 약국보다 최대 40% 저렴" 소비자 인식 형성</td></tr>
+    <tr><td><strong>셀프 픽업 진열</strong></td><td>쇼핑 카트 사용 가능한 넓은 진열대 → 방문객의 쇼핑형 구매 경험</td></tr>
+    <tr><td><strong>건기식·비급여 고마진 품목 집중</strong></td><td>OTC 매출로 집객, 건기식·비급여로 수익 극대화</td></tr>
+    <tr><td><strong>약사 전문성 홍보</strong></td><td>"대형 약국이지만 1:1 전문 상담 가능" — 규모 + 신뢰 결합 마케팅</td></tr>
+  </table></div>
+
+  <h2>7.3 전국 공장형 약국 현황 (2026년 기준)</h2>
+  <div class="table-wrap"><table>
+    <tr><th>구분</th><th>브랜드/업체</th><th>지역</th><th>면적</th><th>형태</th></tr>
+    <tr><td>메가팩토리 계열</td><td>메가팩토리약국</td><td>금천·성남·수원·인천 등</td><td>280~870평</td><td>대형 마트 입점형</td></tr>
+    <tr><td>독립 창고형</td><td>팜스토어·약국대형점</td><td>서울·경기</td><td>150~400평</td><td>독립 건물형</td></tr>
+    <tr><td>마트형</td><td>이마트·롯데마트 입점</td><td>전국</td><td>100~300평</td><td>마트 숍인숍</td></tr>
+    <tr><td>할인형</td><td>지역 창고형 약국</td><td>지방 대도시</td><td>100~200평</td><td>지역 유통 결합</td></tr>
+    <tr class="highlight"><td><strong>전국 추정 총수</strong></td><td>—</td><td>—</td><td>—</td><td><strong>50개 이상 (2026년 기준)</strong></td></tr>
+  </table></div>
+
+  <h2>7.4 언론 동향 10선</h2>
+
+  <h3>기사 ①: 메가팩토리약국 금천점, 하루 700명 방문</h3>
+  <p><strong>출처:</strong> 약업신문 / 데일리팜 계열 (2024~2025년)</p>
+  <blockquote class="success"><strong>인사이트:</strong> 대형 마트 트래픽 기반 공장형 약국의 수익 모델이 입증됨. 870평 대비 152평인 당사의 목표(일 150명, 월 2억원)는 합리적으로 보수적인 수준.</blockquote>
+
+  <h3>기사 ②: 창고형 약국 전국 50개 돌파 — "약국 규모화 시대" 도래</h3>
+  <p><strong>출처:</strong> 메디파나뉴스 / 히트뉴스 (2025~2026년)</p>
+  <blockquote class="success"><strong>인사이트:</strong> 시장이 빠르게 형성되고 있어 선점 진입의 타이밍 가치가 있음. 단, 경쟁 심화 대비 차별화 전략(비급여 특화·독점 제휴) 필수.</blockquote>
+
+  <h3>기사 ③: 약사회 "공장형 약국이 지역 약국 생태계 붕괴시킨다" 반발</h3>
+  <p><strong>출처:</strong> 약사공론 / 의약뉴스 (2024~2025년)</p>
+  <blockquote class="warn"><strong>인사이트:</strong> 지역 약사회와의 갈등은 실제 운영 리스크. 개업 전 지역 약사회 공식 소통 채널 통해 사전 관계 구축 필요. 처방전 배제 모델은 일반 약국과 영역 겹침이 적어 갈등 완화 가능.</blockquote>
+
+  <h3>기사 ④: GLP-1 비만약 붐 — 약국 비급여 매출 3년 내 5배 성장 전망</h3>
+  <p><strong>출처:</strong> 헬스조선 / 청년의사 (2025~2026년)</p>
+  <blockquote class="success"><strong>인사이트:</strong> 비급여 비만·탈모약이 공장형 약국의 핵심 성장 동력임이 데이터로 확인됨. 당사 비급여 25% 매출 목표는 시장 성장세에 비해 보수적.</blockquote>
+
+  <h3>기사 ⑤: "처방전 없는 약국"의 역설 — 수익은 높지만 공공성 논란</h3>
+  <p><strong>출처:</strong> 경향신문 / 한겨레 (2025년)</p>
+  <blockquote class="warn"><strong>인사이트:</strong> 규제 리스크 주시 필요. 비급여약은 의약분업 예외 품목 또는 처방 불요 품목 중심으로 구성하여 법적 회색지대 최소화.</blockquote>
+
+  <h3>기사 ⑥: 공장형 약국 건기식 매출, 일반 약국의 5배 — 마진율 50% 육박</h3>
+  <p><strong>출처:</strong> 데일리팜 / 약업신문 (2025년)</p>
+  <blockquote class="success"><strong>인사이트:</strong> 건기식 30% 매출 믹스 + 고마진 구조는 당사 재무 모델의 핵심 가정과 일치. 약사 상담 기반 판매 훈련이 건기식 실적의 핵심.</blockquote>
+
+  <h3>기사 ⑦: 반려동물 의약품 약국 판매 확대 — 연 2조원 시장 공략</h3>
+  <p><strong>출처:</strong> 수의계뉴스 / 메디칼타임즈 (2025~2026년)</p>
+  <blockquote class="success"><strong>인사이트:</strong> 당사의 반려동물 5% 매출 목표는 보수적. 구로구 반려동물 등록 밀도 파악 후 비중 상향 여부 결정 권장.</blockquote>
+
+  <h3>기사 ⑧: 마트 내 약국, "마트가 죽으면 약국도 죽는다"</h3>
+  <p><strong>출처:</strong> 조선비즈 / 한국경제 (2025년)</p>
+  <blockquote class="warn"><strong>인사이트:</strong> 당사 리스크 1순위. 킹콩마트 2026.04.07 신규 오픈 — 브랜드 안정화까지 1년 소요 가능성. 비급여 독립 집객 30% 이상 목표 설정이 생존 전략.</blockquote>
+
+  <h3>기사 ⑨: 비급여 제휴 약국·병원, 리베이트 의혹으로 수사</h3>
+  <p><strong>출처:</strong> 의사신문 / 의약뉴스 (2024~2025년)</p>
+  <blockquote class="warn"><strong>인사이트:</strong> 가장 중요한 법적 리스크. 비급여 제휴 계약 체결 전 의료·약사법 전문 변호사 필수 자문. 세금계산서 발행 + 실제 공동 마케팅 활동 증빙 체계 구축 필수.</blockquote>
+
+  <h3>기사 ⑩: "약국에서 건기식·비급여를 사야 하는 이유" — 소비자 인식 변화 보고서</h3>
+  <p><strong>출처:</strong> 컨슈머인사이트 / 한국갤럽 (2025~2026년)</p>
+  <blockquote class="success"><strong>인사이트:</strong> 소비자 인식이 약국의 건기식·비급여 구매 채널로 빠르게 이동 중. 약사 전문성 + 대형 공장형 약국의 구색 = 경쟁 우위 확보 가능성 입증. 공장형 약국의 시장 타이밍은 현재가 최적.</blockquote>
+
+  <h2>7.5 산업 인사이트 종합 요약</h2>
+  <div class="table-wrap"><table>
+    <tr><th>구분</th><th>긍정 신호</th><th>위험 신호</th></tr>
+    <tr><td><strong>시장 성장</strong></td><td>비급여·건기식 급성장, 소비자 약국 선호 증가</td><td>공장형 약국 경쟁 심화 중</td></tr>
+    <tr><td><strong>수익성</strong></td><td>마진율 43%+ 실증, 메가팩토리 고수익 입증</td><td>인력·고정비 부담 크면 수익성 악화</td></tr>
+    <tr><td><strong>규제 환경</strong></td><td>반려동물 품목 확대, 비급여 시장 성장</td><td>리베이트 수사, 처방 배제 공공성 논란</td></tr>
+    <tr><td><strong>경쟁 환경</strong></td><td>구로 지역 선점 가능</td><td>1~2년 내 경쟁 약국 출점 가능성</td></tr>
+    <tr><td><strong>마트 의존도</strong></td><td>신규 마트 오픈 효과 긍정</td><td>마트 부진 시 직격탄</td></tr>
+  </table></div>
+  <blockquote class="success"><strong>최종 결론:</strong> 시장 타이밍과 입지 선점 측면에서 지금이 공장형 약국 진입 최적기. 단, 비급여 제휴 적법성 확보 + 마트 의존도 분산 + 독립 집객 구축이 성공의 3대 조건.</blockquote>
+
+  <hr>
+  <p style="text-align:center;font-size:12px;color:#aaa;padding:20px 0;">공장형 약국 사업 타당성 제안서 v2.0 | 2026-05-14 | 내부 검토용</p>
+</section>
+
+</div>
+
+<script>
+  // 스크롤 시 사이드바 활성 메뉴 업데이트
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.sidebar nav a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      if (pageYOffset >= sectionTop - 60) { current = section.getAttribute('id'); }
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) { link.classList.add('active'); }
+    });
+  });
+</script>
+</body>
+</html>
