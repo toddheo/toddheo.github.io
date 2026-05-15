@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>제3자 데이터 제공 동의 — 아임인(imin) 여행 혜택 연계 서비스</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif; background: #f8f9fa; color: #212529; }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+    .badge { display: inline-block; background: #4361ee; color: #fff; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 12px; letter-spacing: 0.05em; margin-bottom: 16px; }
+    h1 { font-size: 22px; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; }
+    .meta { font-size: 12px; color: #868e96; margin-bottom: 32px; }
+    .notice { background: #fff8e1; border-left: 4px solid #f39c12; padding: 14px 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: #7c5c00; margin-bottom: 32px; line-height: 1.7; }
+    h2 { font-size: 15px; font-weight: 700; color: #1a1a2e; margin: 32px 0 12px; padding-left: 10px; border-left: 3px solid #4361ee; }
+    p { font-size: 14px; line-height: 1.8; color: #495057; margin-bottom: 10px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0 24px; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+    th { background: #1a1a2e; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; }
+    td { padding: 9px 14px; border-bottom: 1px solid #dee2e6; vertical-align: top; color: #495057; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: #f8f9fa; }
+    .item-list { padding-left: 18px; margin: 4px 0; }
+    .item-list li { font-size: 13px; line-height: 1.8; color: #495057; }
+    .consent-box { border: 2px solid #dee2e6; border-radius: 10px; padding: 20px 20px 16px; margin: 32px 0; background: #fff; }
+    .consent-box h3 { font-size: 14px; font-weight: 700; color: #1a1a2e; margin-bottom: 14px; }
+    .consent-row { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+    .consent-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .consent-row input[type="checkbox"] { width: 18px; height: 18px; margin-top: 2px; accent-color: #4361ee; flex-shrink: 0; cursor: pointer; }
+    .consent-label { font-size: 13px; color: #343a40; line-height: 1.7; }
+    .consent-label strong { color: #1a1a2e; }
+    .consent-label .req { color: #e63946; font-size: 11px; font-weight: 700; margin-left: 4px; }
+    .consent-label .opt { color: #4361ee; font-size: 11px; font-weight: 700; margin-left: 4px; }
+    .detail-link { font-size: 12px; color: #4361ee; text-decoration: underline; cursor: pointer; margin-top: 3px; display: inline-block; }
+    .btn-wrap { margin-top: 32px; display: flex; gap: 12px; }
+    .btn-agree { flex: 1; background: #4361ee; color: #fff; border: none; padding: 14px; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; }
+    .btn-disagree { flex: 1; background: #fff; color: #495057; border: 2px solid #dee2e6; padding: 14px; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; }
+    .rights { background: #f0f4ff; border-radius: 8px; padding: 16px; margin: 24px 0; }
+    .rights h3 { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px; }
+    .rights ul { padding-left: 18px; }
+    .rights ul li { font-size: 13px; color: #495057; line-height: 1.8; }
+    hr { border: none; border-top: 1px solid #dee2e6; margin: 32px 0; }
+    .footer-note { font-size: 12px; color: #adb5bd; text-align: center; line-height: 1.7; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="badge">개인정보 제3자 제공 동의</div>
+  <h1>여행 혜택 연계 서비스<br>개인정보 제3자 제공 동의서</h1>
+  <p class="meta">아임인(imin) | (주)티웨이브 | 2026-05-26 버전 v1.0</p>
+
+  <div class="notice">
+    ⚠️ <strong>동의 전 꼭 확인하세요.</strong><br>
+    아래 내용은 귀하가 아임인 스테이지에서 설정하신 <strong>'여행'</strong> 목적 정보와 목돈 수령 예정 시점·금액 정보를 여행업체에 제공하는 것에 관한 동의입니다.
+    동의하지 않으셔도 아임인 서비스 이용에는 불이익이 없습니다. 단, 동의하지 않으실 경우 아래 여행 혜택 연계 서비스는 이용하실 수 없습니다.
+  </div>
+
+  <h2>1. 제공 목적</h2>
+  <p>귀하의 스테이지 목돈 수령 예정 시점 및 금액 정보를 제휴 여행업체에 제공하여, 귀하가 여행 예산을 확보하는 시점에 맞춰 맞춤형 여행 상품 및 혜택 정보를 안내받으실 수 있도록 합니다.</p>
+
+  <h2>2. 제공받는 제3자</h2>
+  <table>
+    <thead><tr><th>업체명</th><th>업종</th><th>이용목적</th><th>보유기간</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>마이리얼트립</strong><br><span style="font-size:11px;color:#868e96">㈜마이리얼트립</span></td>
+        <td>여행 플랫폼</td>
+        <td>여행 상품 마케팅 및 맞춤형 프로모션 안내</td>
+        <td>동의 철회 시 또는 목돈 수령일로부터 6개월</td>
+      </tr>
+      <tr>
+        <td><strong>트립닷컴</strong><br><span style="font-size:11px;color:#868e96">Trip.com International Ltd.</span></td>
+        <td>글로벌 여행 플랫폼</td>
+        <td>항공·호텔·패키지 상품 마케팅 및 프로모션 안내</td>
+        <td>동의 철회 시 또는 목돈 수령일로부터 6개월</td>
+      </tr>
+      <tr>
+        <td><strong>클룩</strong><br><span style="font-size:11px;color:#868e96">Klook Travel Technology Ltd.</span></td>
+        <td>액티비티·투어 플랫폼</td>
+        <td>현지 액티비티·투어 상품 마케팅 및 프로모션 안내</td>
+        <td>동의 철회 시 또는 목돈 수령일로부터 6개월</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>3. 제공하는 개인정보 항목</h2>
+  <table>
+    <thead><tr><th>구분</th><th>항목</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>필수 제공</strong></td>
+        <td>
+          <ul class="item-list">
+            <li>스테이지 목적 (여행 선택 여부)</li>
+            <li>목돈 수령 예정 시점 (연·월 단위)</li>
+            <li>목돈 수령 예정 금액 구간 (예: 100만원대, 200만원대)</li>
+            <li>연락처 (이메일 또는 휴대폰 번호 중 선택)</li>
+          </ul>
+        </td>
+        <td>동의 시 제공</td>
+      </tr>
+      <tr>
+        <td><strong>선택 제공</strong></td>
+        <td>
+          <ul class="item-list">
+            <li>선호 여행 지역 (귀하가 스테이지에 입력한 경우)</li>
+            <li>동행 인원 수 (귀하가 스테이지에 입력한 경우)</li>
+          </ul>
+        </td>
+        <td>별도 동의 시 제공</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="notice" style="background:#e8f5e9; border-color:#4caf50; color:#2e7d32;">
+    🔒 <strong>제공하지 않는 정보</strong><br>
+    실명, 주민등록번호, 계좌번호, 카드번호, 스테이지 상세 거래 내역, 신용정보 등 금융 민감 정보는 제3자에게 제공되지 않습니다.
+    제공되는 금액 정보는 정확한 금액이 아닌 <strong>구간(range)</strong> 형태로만 제공됩니다.
+  </div>
+
+  <h2>4. 개인정보 보유 및 이용 기간</h2>
+  <p>동의 철회 시 즉시 삭제하며, 동의 유지 시에도 목돈 수령 예정일로부터 <strong>6개월 이내</strong>에 삭제합니다. 단, 관계 법령에 따라 보존이 필요한 경우에는 해당 기간 동안 보관합니다.</p>
+
+  <h2>5. 귀하의 권리</h2>
+  <div class="rights">
+    <h3>📋 개인정보보호법 제35조~제39조에 따른 귀하의 권리</h3>
+    <ul>
+      <li>언제든지 본 동의를 <strong>철회</strong>할 수 있습니다 (앱 내 마이페이지 → 개인정보 동의 관리)</li>
+      <li>제공된 개인정보의 <strong>열람·수정·삭제</strong>를 요청할 수 있습니다</li>
+      <li>개인정보 처리 정지를 요청할 수 있습니다</li>
+      <li>동의 철회 후 지체 없이 개인정보를 파기합니다 (최대 5영업일 이내)</li>
+    </ul>
+  </div>
+
+  <h2>6. 동의 철회 방법</h2>
+  <p>아임인 앱 → 마이페이지 → 개인정보 동의 관리 → '여행 혜택 연계 서비스 동의' 철회<br>
+  또는 고객센터(support@twave.co.kr)에 이메일 요청</p>
+
+  <h2>7. 개인정보 보호책임자</h2>
+  <table>
+    <thead><tr><th>항목</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td>회사명</td><td>(주)티웨이브</td></tr>
+      <tr><td>책임자</td><td>개인정보 보호책임자 (CPO)</td></tr>
+      <tr><td>연락처</td><td>privacy@twave.co.kr</td></tr>
+      <tr><td>불만 접수</td><td>개인정보 분쟁조정위원회 (www.kopico.go.kr) / 개인정보침해신고센터 (118)</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <div class="consent-box">
+    <h3>📝 동의 선택</h3>
+
+    <div class="consent-row">
+      <input type="checkbox" id="all">
+      <div class="consent-label">
+        <strong>전체 동의</strong> — 아래 모든 항목에 동의합니다
+      </div>
+    </div>
+
+    <div class="consent-row">
+      <input type="checkbox" id="c1">
+      <div class="consent-label">
+        <strong>[필수]</strong> 마이리얼트립에 개인정보 제공에 동의합니다<span class="req">필수</span><br>
+        <span class="detail-link">▸ 상세 내용 보기 (제공 목적·항목·보유기간)</span>
+      </div>
+    </div>
+
+    <div class="consent-row">
+      <input type="checkbox" id="c2">
+      <div class="consent-label">
+        <strong>[필수]</strong> 트립닷컴(Trip.com)에 개인정보 제공에 동의합니다<span class="req">필수</span><br>
+        <span class="detail-link">▸ 상세 내용 보기 (제공 목적·항목·보유기간)</span>
+      </div>
+    </div>
+
+    <div class="consent-row">
+      <input type="checkbox" id="c3">
+      <div class="consent-label">
+        <strong>[필수]</strong> 클룩(Klook)에 개인정보 제공에 동의합니다<span class="req">필수</span><br>
+        <span class="detail-link">▸ 상세 내용 보기 (제공 목적·항목·보유기간)</span>
+      </div>
+    </div>
+
+    <div class="consent-row">
+      <input type="checkbox" id="c4">
+      <div class="consent-label">
+        <strong>[선택]</strong> 선호 여행 지역·동행 인원 정보를 추가 제공합니다<span class="opt">선택</span><br>
+        <span style="font-size:12px;color:#868e96;">선택 동의 거부 시에도 필수 동의 항목 서비스 이용 가능</span>
+      </div>
+    </div>
+
+    <div class="btn-wrap">
+      <button class="btn-disagree">동의하지 않음</button>
+      <button class="btn-agree">동의하고 여행 혜택 받기</button>
+    </div>
+  </div>
+
+  <p class="footer-note">
+    본 동의서는 「개인정보 보호법」 제17조 및 제18조에 따라 작성되었습니다.<br>
+    동의 일시는 귀하가 동의 버튼을 누른 시점으로 자동 기록됩니다.<br>
+    문의: privacy@twave.co.kr | (주)티웨이브
+  </p>
+</div>
+</body>
+</html>

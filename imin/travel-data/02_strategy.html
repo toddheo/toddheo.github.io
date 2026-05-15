@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>여행 데이터 파트너십 전략 보고서 — 아임인(imin) 내부용</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif; background: #f8f9fa; color: #212529; display: flex; }
+    .sidebar { width: 240px; min-height: 100vh; background: #1a1a2e; color: #e0e0e0; position: fixed; top: 0; left: 0; overflow-y: auto; padding: 20px 0; }
+    .sidebar .logo { padding: 16px 20px 20px; border-bottom: 1px solid #2d2d4e; }
+    .sidebar .logo h1 { font-size: 12px; color: #fff; line-height: 1.6; }
+    .sidebar .logo p { font-size: 10px; color: #888; margin-top: 4px; }
+    .sidebar nav ul { list-style: none; padding: 10px 0; }
+    .sidebar nav ul li a { display: block; padding: 7px 20px; font-size: 12px; color: #b0b0c0; text-decoration: none; transition: all 0.2s; border-left: 3px solid transparent; }
+    .sidebar nav ul li a:hover, .sidebar nav ul li a.active { color: #fff; background: rgba(67,97,238,0.18); border-left-color: #4361ee; }
+    .sidebar nav .section-title { padding: 12px 20px 4px; font-size: 9px; color: #666; text-transform: uppercase; letter-spacing: 0.08em; }
+    .main { margin-left: 240px; padding: 48px 60px; max-width: calc(100% - 240px); }
+    .content { max-width: 860px; margin: 0 auto; }
+    .confidential { display: inline-block; background: #e63946; color: #fff; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 4px; letter-spacing: 0.1em; margin-bottom: 16px; }
+    h1 { font-size: 26px; font-weight: 700; color: #1a1a2e; border-bottom: 3px solid #4361ee; padding-bottom: 12px; margin-bottom: 8px; }
+    .meta { font-size: 12px; color: #868e96; margin-bottom: 32px; }
+    h2 { font-size: 18px; font-weight: 600; color: #1a1a2e; margin: 44px 0 14px; padding-left: 12px; border-left: 4px solid #4361ee; }
+    h3 { font-size: 15px; font-weight: 600; color: #343a40; margin: 28px 0 10px; }
+    p { line-height: 1.8; margin-bottom: 14px; color: #495057; font-size: 15px; }
+    .table-wrap { overflow-x: auto; margin: 14px 0 28px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th { background: #1a1a2e; color: #fff; padding: 11px 14px; text-align: left; font-weight: 600; }
+    th:first-child { border-radius: 8px 0 0 0; } th:last-child { border-radius: 0 8px 0 0; }
+    td { padding: 9px 14px; border-bottom: 1px solid #dee2e6; vertical-align: top; }
+    tr:hover td { background: #f0f4ff; }
+    tr:nth-child(even) td { background: #f8f9fa; }
+    tr.total td { background: #1a1a2e !important; color: #fff !important; font-weight: 700; }
+    blockquote { background: #f0f4ff; border-left: 4px solid #4361ee; padding: 13px 18px; margin: 14px 0 20px; border-radius: 0 8px 8px 0; font-size: 14px; color: #343a40; }
+    blockquote.success { background: #e8f5e9; border-left-color: #4caf50; }
+    blockquote.warn { background: #fff8e1; border-left-color: #f39c12; }
+    blockquote.danger { background: #fde8e8; border-left-color: #e63946; }
+    hr { border: none; border-top: 1px solid #dee2e6; margin: 44px 0; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 20px 0 32px; }
+    .kpi-card { background: #fff; border: 1px solid #dee2e6; border-radius: 8px; padding: 16px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+    .kpi-card .label { font-size: 11px; color: #868e96; margin-bottom: 6px; }
+    .kpi-card .value { font-size: 22px; font-weight: 700; color: #1a1a2e; }
+    .kpi-card .sub { font-size: 11px; color: #4361ee; margin-top: 3px; }
+    .risk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+    .risk-card { background: #fff; border-radius: 8px; border: 1px solid #dee2e6; padding: 18px; }
+    .risk-card .risk-head { font-size: 13px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .risk-card ul { padding-left: 18px; }
+    .risk-card ul li { font-size: 13px; color: #495057; line-height: 1.8; }
+    .phase { border-left: 3px solid #4361ee; padding-left: 16px; margin-bottom: 24px; }
+    .phase .phase-label { font-size: 11px; font-weight: 700; color: #4361ee; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+    .phase h3 { margin: 0 0 8px; }
+    .phase ul { padding-left: 18px; }
+    .phase ul li { font-size: 14px; color: #495057; line-height: 1.8; }
+  </style>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="logo">
+    <h1>아임인(imin)<br>여행 데이터 파트너십</h1>
+    <p>🔒 내부 전략 보고서</p>
+  </div>
+  <nav>
+    <ul>
+      <div class="section-title">목차</div>
+      <li><a href="#overview" class="active">01. 개요 및 배경</a></li>
+      <li><a href="#segment">02. 타겟 세그먼트</a></li>
+      <li><a href="#product">03. 데이터 상품 설계</a></li>
+      <li><a href="#effect">04. 기대 효과</a></li>
+      <li><a href="#risk">05. 리스크 분석</a></li>
+      <li><a href="#plan">06. 실행 계획</a></li>
+      <li><a href="#kpi">07. KPI 및 성과 측정</a></li>
+    </ul>
+  </nav>
+</nav>
+
+<div class="main">
+<div class="content">
+  <span class="confidential">🔒 INTERNAL CONFIDENTIAL</span>
+  <h1>여행 데이터 파트너십 전략 보고서</h1>
+  <p class="meta"><strong>[2026-05-26]</strong> | 작성: 허진영 Global BD Director | 보고 대상: CEO, CSO, CPO</p>
+
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="label">여행 목적 스테이지 추정 비중</div><div class="value">~15%</div><div class="sub">전체 활성 사용자 대비</div></div>
+    <div class="kpi-card"><div class="label">타겟 잠재 사용자 수</div><div class="value">~9만 명</div><div class="sub">연간 여행 목적 스테이지 참여자</div></div>
+    <div class="kpi-card"><div class="label">평균 목돈 수령 금액</div><div class="value">150~300만</div><div class="sub">여행용 스테이지 기준</div></div>
+    <div class="kpi-card"><div class="label">예상 B2B 수익 (1차)</div><div class="value">연 2~5억</div><div class="sub">데이터 라이선스 기준</div></div>
+  </div>
+
+  <blockquote class="success">💡 <strong>핵심 명제:</strong> 아임인은 "언제, 얼마의 여행 예산을 확보하는가"를 <strong>사전에 확정적으로 아는</strong> 유일한 플랫폼입니다. 이 데이터는 여행업체에게 가장 희소하고 가치 있는 인텐트 신호(Intent Signal)입니다.</blockquote>
+
+  <hr>
+
+  <h2 id="overview">1. 개요 및 배경</h2>
+  <h3>추진 배경</h3>
+  <p>아임인 사용자는 스테이지 참여 시 <strong>목적(여행, 결혼, 육아 등)</strong>을 설정합니다. '여행' 목적으로 스테이지에 참여한 사용자는 구조적으로 다음을 확정적으로 알 수 있습니다:</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>알 수 있는 정보</th><th>구체적 내용</th><th>여행업체 활용 가치</th></tr></thead>
+    <tbody>
+      <tr><td><strong>수령 시점</strong></td><td>스테이지 회차 구조상 특정 연·월에 목돈 수령 확정</td><td>프로모션 타이밍 최적화</td></tr>
+      <tr><td><strong>수령 금액</strong></td><td>스테이지 납입 구조로 수령 금액 사전 확정</td><td>적합 상품 레코멘데이션</td></tr>
+      <tr><td><strong>여행 인텐트</strong></td><td>사용자가 직접 '여행' 목적으로 저축 중</td><td>전환율 극대화</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>추진 목적</h3>
+  <p>① 아임인의 <strong>데이터 자산을 B2B 수익원으로 전환</strong> — 데이터 라이선스 수수료 창출<br>
+  ② 사용자에게 <strong>목돈 수령 시점의 여행 혜택</strong>을 제공하여 플랫폼 가치 향상<br>
+  ③ 마이리얼트립·트립닷컴·클룩 등과의 <strong>전략적 파트너십 구축</strong> → 향후 화이트라벨·공동 캠페인 확장 기반</p>
+
+  <hr>
+
+  <h2 id="segment">2. 타겟 세그먼트 분석</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>항목</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td><strong>정의</strong></td><td>스테이지 목적을 '여행'으로 설정하고 현재 납입 중인 활성 사용자</td></tr>
+      <tr><td><strong>추정 규모</strong></td><td>활성 사용자 약 60만 명 × 여행 목적 비중 ~15% = 약 9만 명</td></tr>
+      <tr><td><strong>수령 예정 금액 분포</strong></td><td>100만원대 40% / 200만원대 35% / 300만원 이상 25%</td></tr>
+      <tr><td><strong>수령 예정 시점 분포</strong></td><td>3개월 이내 25% / 3~6개월 30% / 6~12개월 45%</td></tr>
+      <tr><td><strong>구매력 특성</strong></td><td>이미 여행 예산을 저축 완료한 확정적 여행 소비자</td></tr>
+      <tr><td><strong>경쟁 우위</strong></td><td>일반 여행 앱의 '관심 사용자'와 달리 <strong>예산 확보가 확정된</strong> 고인텐트 세그먼트</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <hr>
+
+  <h2 id="product">3. 데이터 상품 설계</h2>
+  <h3>제공 데이터 스펙</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>데이터 항목</th><th>형태</th><th>제공 방식</th></tr></thead>
+    <tbody>
+      <tr><td>목돈 수령 예정 시점</td><td>연·월 (예: 2026년 8월)</td><td>API 또는 월간 배치</td></tr>
+      <tr><td>수령 예정 금액</td><td>구간 (100만대 / 200만대 / 300만대 이상)</td><td>API 또는 월간 배치</td></tr>
+      <tr><td>연락처 (동의자)</td><td>이메일 또는 휴대폰 (선택 제공)</td><td>암호화 전송</td></tr>
+      <tr><td>선호 여행지 (선택 동의)</td><td>국내 / 동남아 / 유럽 / 기타</td><td>선택 동의자 한정</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>비즈니스 모델 옵션</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>모델</th><th>구조</th><th>예상 단가</th><th>적합 파트너</th></tr></thead>
+    <tbody>
+      <tr><td><strong>A. 데이터 라이선스</strong></td><td>월정액 데이터 피드 제공</td><td>월 500~2,000만원/사</td><td>트립닷컴, 클룩</td></tr>
+      <tr><td><strong>B. CPA (전환 수수료)</strong></td><td>아임인 유저가 여행상품 구매 시 커미션</td><td>건당 5,000~20,000원</td><td>마이리얼트립</td></tr>
+      <tr><td><strong>C. 하이브리드</strong></td><td>기본 라이선스 + CPA</td><td>월 200만 + CPA</td><td>전체</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <blockquote class="warn">⚠️ 초기(1차 파일럿)는 <strong>C. 하이브리드 모델</strong>로 진행하여 성과 데이터 축적 후 단가 협상력 확보 권장</blockquote>
+
+  <hr>
+
+  <h2 id="effect">4. 기대 효과</h2>
+  <h3>수익 시뮬레이션</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>시나리오</th><th>동의율</th><th>동의자 수</th><th>파트너 수</th><th>연간 수익</th></tr></thead>
+    <tbody>
+      <tr><td>보수적 (S1)</td><td>10%</td><td>9,000명</td><td>1사</td><td>~8,000만원</td></tr>
+      <tr><td>기본 (S2)</td><td>20%</td><td>18,000명</td><td>2사</td><td>~2억원</td></tr>
+      <tr><td>낙관적 (S3)</td><td>35%</td><td>31,500명</td><td>3사</td><td>~5억원</td></tr>
+      <tr class="total"><td colspan="4">권장 목표 (1차 파일럿)</td><td>S2 달성 = 연 2억원</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>비재무적 기대 효과</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>영역</th><th>기대 효과</th></tr></thead>
+    <tbody>
+      <tr><td>사용자 가치</td><td>목돈 수령 시점에 맞춤 여행 혜택 수신 → 플랫폼 록인 효과 및 재참여율 향상</td></tr>
+      <tr><td>파트너 확장</td><td>여행업체 → 보험, 렌터카, 환전 등 인접 산업으로 데이터 파트너십 확장 기반</td></tr>
+      <tr><td>브랜딩</td><td>"목적 달성 순간을 연결하는 플랫폼"으로 아임인 포지셔닝 강화</td></tr>
+      <tr><td>데이터 자산화</td><td>아임인 목적별 스테이지 데이터를 B2B 자산으로 전환 — 기업 가치 향상</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <hr>
+
+  <h2 id="risk">5. 리스크 분석</h2>
+  <div class="risk-grid">
+    <div class="risk-card">
+      <div class="risk-head" style="color:#e63946;">🔴 개인정보·법규 리스크</div>
+      <ul>
+        <li>개인정보보호법 제17조 제3자 제공 동의 위반 시 형사처벌 가능</li>
+        <li>동의 없는 데이터 제공 = 과징금 (매출의 3% 이내)</li>
+        <li>금융데이터로 오해될 경우 신용정보법 저촉 가능성</li>
+      </ul>
+    </div>
+    <div class="risk-card">
+      <div class="risk-head" style="color:#e63946;">🔴 사용자 신뢰 리스크</div>
+      <ul>
+        <li>동의 과정 불투명 시 "아임인이 내 정보 팔았다" 인식 확산</li>
+        <li>SNS 역풍 시 기존 사용자 이탈 가능성</li>
+        <li>동의율 저조 시 파트너 기대치 미달 → 계약 파기</li>
+      </ul>
+    </div>
+    <div class="risk-card">
+      <div class="risk-head" style="color:#f39c12;">🟠 데이터 품질 리스크</div>
+      <ul>
+        <li>스테이지 중도 탈퇴자 → 수령 시점 변경으로 파트너사 데이터 신뢰도 저하</li>
+        <li>여행 목적 스테이지 분류 정확도 의존성</li>
+        <li>연락처 오류·미입력자 제외 시 실 제공 규모 축소</li>
+      </ul>
+    </div>
+    <div class="risk-card">
+      <div class="risk-head" style="color:#f39c12;">🟠 파트너십 리스크</div>
+      <ul>
+        <li>여행업체가 데이터 가치를 낮게 평가 시 단가 협상 실패</li>
+        <li>파트너의 무분별한 마케팅으로 사용자 불만 유발</li>
+        <li>파트너 간 데이터 재판매·유출 리스크</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>리스크 완화 방안</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>리스크</th><th>완화 방안</th></tr></thead>
+    <tbody>
+      <tr><td>법규</td><td>법무팀 검토 후 동의서 확정 / 개인정보보호위원회 사전 가이드라인 확인 / 금액은 구간(range)으로만 제공</td></tr>
+      <tr><td>사용자 신뢰</td><td>동의 UI 명확화 / 미동의 사용자 서비스 불이익 없음 명시 / 동의 철회 1-tap 제공</td></tr>
+      <tr><td>데이터 품질</td><td>실시간 스테이지 상태 반영 API 제공 / SLA 명시 (데이터 정확도 85% 이상 보장)</td></tr>
+      <tr><td>파트너</td><td>데이터 재판매 금지 조항 / 마케팅 메시지 횟수 제한 (월 2회 이내) / 사용자 피드백 모니터링</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <hr>
+
+  <h2 id="plan">6. 실행 계획</h2>
+
+  <div class="phase">
+    <div class="phase-label">Phase 1 — 준비 (2026년 6~7월)</div>
+    <h3>법률 검토 및 내부 인프라 구축</h3>
+    <ul>
+      <li>개인정보보호법 법무 검토 완료 및 동의서 최종 확정</li>
+      <li>CPO: 여행 목적 스테이지 태그 정확도 검증 및 데이터 파이프라인 설계</li>
+      <li>동의 수집 UI 개발 (앱 내 팝업 + 마이페이지 설정)</li>
+      <li>마이리얼트립 1개사 대상 파일럿 파트너십 MOU 체결</li>
+    </ul>
+  </div>
+
+  <div class="phase">
+    <div class="phase-label">Phase 2 — 파일럿 (2026년 8~10월, 3개월)</div>
+    <h3>마이리얼트립 1사 대상 파일럿 운영</h3>
+    <ul>
+      <li>여행 목적 스테이지 사용자 대상 인앱 동의 수집 캠페인</li>
+      <li>동의자 데이터 → 마이리얼트립에 월 1회 배치 제공</li>
+      <li>마이리얼트립 → 아임인 동의자 대상 여행 상품 발송 (월 2회 한도)</li>
+      <li>KPI 측정: 동의율, 오픈율, 전환율, 사용자 불만 건수</li>
+    </ul>
+  </div>
+
+  <div class="phase">
+    <div class="phase-label">Phase 3 — 확장 (2026년 11월~)</div>
+    <h3>트립닷컴·클룩 추가 계약 및 상품 고도화</h3>
+    <ul>
+      <li>파일럿 성과 기반 단가 협상 및 계약 확대</li>
+      <li>실시간 API 제공 방식으로 전환 (배치 → API)</li>
+      <li>CPA 전환 수수료 모델 추가 도입</li>
+      <li>보험·렌터카·환전 등 인접 산업으로 파트너 확장</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <h2 id="kpi">7. KPI 및 성과 측정</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>KPI</th><th>Phase 1 목표</th><th>Phase 2 목표</th><th>Phase 3 목표</th></tr></thead>
+    <tbody>
+      <tr><td>동의 수집률 (여행 스테이지 사용자 대비)</td><td>—</td><td>15% 이상</td><td>25% 이상</td></tr>
+      <tr><td>파트너사 수</td><td>MOU 1사</td><td>계약 1사</td><td>계약 3사 이상</td></tr>
+      <tr><td>데이터 정확도 (SLA)</td><td>설계 완료</td><td>85% 이상</td><td>90% 이상</td></tr>
+      <tr><td>사용자 불만 건수 (월간)</td><td>—</td><td>5건 미만</td><td>3건 미만</td></tr>
+      <tr><td>B2B 수익 (연간)</td><td>—</td><td>5,000만원</td><td>2억원 이상</td></tr>
+      <tr><td>파트너 → 아임인 전환 구매 건수</td><td>—</td><td>측정 시작</td><td>월 500건 이상</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <blockquote class="success">✅ <strong>의사결정 요청:</strong> Phase 1 법무 검토 착수 및 CPO 데이터 파이프라인 설계 승인 요청. 파일럿 파트너 1사 (마이리얼트립) 접촉 착수 권한 요청.</blockquote>
+</div>
+</div>
+</body>
+</html>
