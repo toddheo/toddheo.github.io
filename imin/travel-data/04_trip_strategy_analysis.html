@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>아임인 트립 × 여행 데이터 파트너십 — 전략 분석 보고서</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif; background: #f0f2f5; color: #212529; }
+
+    /* ── Layout ── */
+    .page { max-width: 900px; margin: 0 auto; padding: 48px 24px 100px; }
+
+    /* ── Header ── */
+    .doc-header { background: #1a1a2e; color: #fff; border-radius: 14px; padding: 36px 36px 32px; margin-bottom: 32px; position: relative; overflow: hidden; }
+    .doc-header::before { content: ''; position: absolute; top: -40px; right: -40px; width: 220px; height: 220px; background: radial-gradient(circle, rgba(67,97,238,0.3) 0%, transparent 70%); }
+    .doc-meta { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+    .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 12px; letter-spacing: 0.05em; }
+    .badge-red { background: #e63946; color: #fff; }
+    .badge-blue { background: #4361ee; color: #fff; }
+    .badge-gray { background: rgba(255,255,255,0.15); color: #fff; }
+    .doc-title { font-size: 26px; font-weight: 800; line-height: 1.3; margin-bottom: 8px; }
+    .doc-sub { font-size: 13px; color: rgba(255,255,255,0.6); }
+
+    /* ── Section ── */
+    .section { background: #fff; border-radius: 12px; padding: 28px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+    .section-title { font-size: 16px; font-weight: 800; color: #1a1a2e; margin-bottom: 18px; padding-left: 12px; border-left: 4px solid #4361ee; display: flex; align-items: center; gap: 8px; }
+    .section-title .num { background: #4361ee; color: #fff; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 10px; }
+
+    /* ── KPI Cards ── */
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-bottom: 20px; }
+    .kpi-card { background: #f8f9fa; border-radius: 10px; padding: 16px; text-align: center; border: 1px solid #e9ecef; }
+    .kpi-card.danger { border-color: #e63946; background: #fff5f5; }
+    .kpi-card.warn { border-color: #f39c12; background: #fffbf0; }
+    .kpi-card.ok { border-color: #4caf50; background: #f0fff4; }
+    .kpi-label { font-size: 11px; color: #868e96; margin-bottom: 6px; font-weight: 600; }
+    .kpi-target { font-size: 12px; color: #adb5bd; margin-bottom: 4px; }
+    .kpi-actual { font-size: 22px; font-weight: 800; }
+    .kpi-actual.red { color: #e63946; }
+    .kpi-actual.amber { color: #f39c12; }
+    .kpi-actual.green { color: #4caf50; }
+    .kpi-rate { font-size: 12px; font-weight: 700; margin-top: 4px; }
+
+    /* ── Table ── */
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0 20px; }
+    th { background: #1a1a2e; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; }
+    td { padding: 9px 14px; border-bottom: 1px solid #dee2e6; vertical-align: top; color: #495057; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: #f8f9fa; }
+    .tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 8px; }
+    .tag-red { background: #ffe3e3; color: #c0392b; }
+    .tag-blue { background: #dbeafe; color: #1e3a8a; }
+    .tag-green { background: #dcfce7; color: #166534; }
+    .tag-amber { background: #fef3c7; color: #92400e; }
+
+    /* ── Callout / Quote ── */
+    .callout { border-left: 4px solid #4361ee; background: #f0f4ff; border-radius: 0 8px 8px 0; padding: 14px 16px; margin: 12px 0; font-size: 13px; color: #343a40; line-height: 1.8; }
+    .callout.danger { border-color: #e63946; background: #fff5f5; color: #7c1a1a; }
+    .callout.success { border-color: #4caf50; background: #f0fff4; color: #1a4731; }
+    .callout.amber { border-color: #f39c12; background: #fffbf0; color: #7c4900; }
+
+    /* ── Funnel ── */
+    .funnel { display: flex; flex-direction: column; gap: 4px; margin: 16px 0; }
+    .funnel-step { display: flex; align-items: center; gap: 12px; }
+    .funnel-bar-wrap { flex: 1; }
+    .funnel-label { font-size: 12px; color: #495057; width: 160px; flex-shrink: 0; font-weight: 600; }
+    .funnel-bar { height: 28px; border-radius: 4px; display: flex; align-items: center; padding: 0 10px; color: #fff; font-size: 12px; font-weight: 700; transition: width 0.3s; }
+    .funnel-note { font-size: 11px; color: #adb5bd; width: 80px; text-align: right; flex-shrink: 0; }
+    .arrow-down { text-align: center; color: #dee2e6; font-size: 16px; margin: 0; }
+
+    /* ── Comparison ── */
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+    .compare-box { border-radius: 10px; padding: 18px; }
+    .compare-box.asis { background: #fff5f5; border: 2px solid #e63946; }
+    .compare-box.tobe { background: #f0fff4; border: 2px solid #4caf50; }
+    .compare-head { font-size: 13px; font-weight: 800; margin-bottom: 12px; }
+    .compare-head.red { color: #e63946; }
+    .compare-head.green { color: #4caf50; }
+    .compare-item { font-size: 12px; color: #495057; line-height: 1.9; padding-left: 2px; }
+    .compare-item::before { content: '• '; color: #adb5bd; }
+
+    /* ── Strategy Pillars ── */
+    .pillar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 16px 0; }
+    .pillar { border-radius: 10px; padding: 20px; border: 1px solid #e9ecef; }
+    .pillar-icon { font-size: 24px; margin-bottom: 10px; }
+    .pillar-title { font-size: 14px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px; }
+    .pillar-body { font-size: 12px; color: #6c757d; line-height: 1.8; }
+
+    /* ── Roadmap ── */
+    .roadmap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0; }
+    .road-card { border-radius: 10px; padding: 18px; }
+    .road-card.p1 { background: #eef2ff; border-top: 3px solid #4361ee; }
+    .road-card.p2 { background: #fef3c7; border-top: 3px solid #f59e0b; }
+    .road-card.p3 { background: #dcfce7; border-top: 3px solid #4caf50; }
+    .road-phase { font-size: 11px; font-weight: 700; margin-bottom: 4px; }
+    .road-phase.blue { color: #4361ee; }
+    .road-phase.amber { color: #b45309; }
+    .road-phase.green { color: #166534; }
+    .road-period { font-size: 13px; font-weight: 800; color: #1a1a2e; margin-bottom: 12px; }
+    .road-item { font-size: 12px; color: #495057; line-height: 1.9; }
+    .road-item::before { content: '→ '; color: #adb5bd; }
+
+    /* ── Matrix ── */
+    .matrix { border-radius: 10px; overflow: hidden; margin: 16px 0; }
+    .matrix-header { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; background: #1a1a2e; color: #fff; font-size: 12px; font-weight: 700; padding: 10px 14px; gap: 8px; }
+    .matrix-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; font-size: 12px; padding: 10px 14px; gap: 8px; border-bottom: 1px solid #f0f0f0; align-items: center; }
+    .matrix-row:nth-child(even) { background: #f8f9fa; }
+    .matrix-row:last-child { border-bottom: none; }
+
+    /* ── Insight Box ── */
+    .insight-box { background: #1a1a2e; color: #fff; border-radius: 10px; padding: 22px; margin: 20px 0; }
+    .insight-title { font-size: 13px; font-weight: 700; color: #a5b4fc; margin-bottom: 10px; }
+    .insight-body { font-size: 14px; line-height: 1.9; color: rgba(255,255,255,0.88); }
+    .insight-body strong { color: #a5b4fc; }
+
+    /* ── Reference ── */
+    .ref-list { list-style: none; padding: 0; }
+    .ref-list li { padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
+    .ref-list li:last-child { border-bottom: none; }
+    .ref-list a { color: #4361ee; text-decoration: none; }
+    .ref-list a:hover { text-decoration: underline; }
+    .ref-date { font-size: 11px; color: #adb5bd; flex-shrink: 0; margin-left: 8px; }
+
+    p { font-size: 13px; line-height: 1.8; color: #495057; margin-bottom: 10px; }
+    h3 { font-size: 14px; font-weight: 700; color: #1a1a2e; margin: 18px 0 10px; }
+    hr { border: none; border-top: 1px solid #f0f0f0; margin: 20px 0; }
+    .small { font-size: 11px; color: #adb5bd; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="doc-header">
+    <div class="doc-meta">
+      <span class="badge badge-red">INTERNAL CONFIDENTIAL</span>
+      <span class="badge badge-blue">전략 분석 보고서</span>
+      <span class="badge badge-gray">2026-05-15 v1.0</span>
+    </div>
+    <div class="doc-title">아임인 트립 현황 진단 &<br>여행 데이터 파트너십 전략 분석</div>
+    <div class="doc-sub">작성: 허진영 (글로벌 BD 이사) | (주)티웨이브 × 아임인(imin)</div>
+  </div>
+
+  <!-- 0. Executive Summary -->
+  <div class="section">
+    <div class="section-title"><span class="num">00</span> Executive Summary</div>
+    <div class="insight-box">
+      <div class="insight-title">핵심 진단 3줄</div>
+      <div class="insight-body">
+        아임인 트립은 스테이지 Start를 유도하는 레버로 설계되었으나, 26년 4월 기준 AU 기여 목표의 <strong>10%</strong>만 달성하며 구조적 한계에 직면했다. 트립은 "언제 목돈이 생기는지 모르는 상태"에서 단순 특가를 제공하는 방식이어서 전환 설득력이 낮고, 아임인 사용자가 이미 여행 목적으로 설정한 스테이지 데이터가 활용되지 않고 있다. 제안하는 여행 데이터 파트너십은 이 데이터를 B2B 수익원으로 전환함으로써 트립의 구조적 한계를 우회하고, 양쪽이 보완 관계로 작동하도록 설계된다.
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 현황 -->
+  <div class="section">
+    <div class="section-title"><span class="num">01</span> 아임인 트립 현황 — 수치로 보는 실태</div>
+
+    <h3>26년 4월 실적 (가장 최신 마감 데이터)</h3>
+    <div class="kpi-grid">
+      <div class="kpi-card danger">
+        <div class="kpi-label">아임인 AU 기여</div>
+        <div class="kpi-target">목표: 80명</div>
+        <div class="kpi-actual red">8명</div>
+        <div class="kpi-rate" style="color:#e63946;">달성률 10% ▼</div>
+      </div>
+      <div class="kpi-card danger">
+        <div class="kpi-label">트립 회원가입</div>
+        <div class="kpi-target">목표: 198명</div>
+        <div class="kpi-actual red">42명</div>
+        <div class="kpi-rate" style="color:#e63946;">달성률 21% ▼</div>
+      </div>
+      <div class="kpi-card warn">
+        <div class="kpi-label">트립 매출</div>
+        <div class="kpi-target">목표: 2,500만</div>
+        <div class="kpi-actual amber">2,131만</div>
+        <div class="kpi-rate" style="color:#f39c12;">달성률 85% △</div>
+      </div>
+      <div class="kpi-card ok">
+        <div class="kpi-label">트립 수익</div>
+        <div class="kpi-target">목표: 100만</div>
+        <div class="kpi-actual green">101.8만</div>
+        <div class="kpi-rate" style="color:#4caf50;">달성률 102% ▲</div>
+      </div>
+      <div class="kpi-card ok">
+        <div class="kpi-label">트립 수익률</div>
+        <div class="kpi-target">목표: 4%</div>
+        <div class="kpi-actual green">4.77%</div>
+        <div class="kpi-rate" style="color:#4caf50;">목표 초과</div>
+      </div>
+    </div>
+
+    <div class="callout danger">
+      <strong>핵심 모순:</strong> 트립은 수익률(4.77%)을 달성했지만, 본래 존재 이유인 "스테이지 Start 유도(AU 기여)"는 목표의 10%에 불과하다. 트립이 수익 사업으로서는 미미하고, AU 레버로서도 작동하지 않는 이도저도 아닌 상태다.
+    </div>
+
+    <h3>월별 AU 기여 추이</h3>
+    <table>
+      <thead><tr><th>기간</th><th>AU 기여 목표</th><th>실적</th><th>달성률</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td>25년 11월</td><td>80명</td><td>250명</td><td style="color:#4caf50;font-weight:700;">313%</td><td>트립닷컴 등 기존 사용자 흡수 특이치</td></tr>
+        <tr><td>25년 12월</td><td>80명</td><td>0명</td><td style="color:#e63946;font-weight:700;">0%</td><td>트립 가입자 97명 (11월 999명 대비 급감)</td></tr>
+        <tr><td>26년 1월</td><td>80명</td><td>37명</td><td style="color:#f39c12;font-weight:700;">46%</td><td>인플루언서 바이럴 효과 일부</td></tr>
+        <tr><td>26년 2월</td><td>80명</td><td>43명</td><td style="color:#f39c12;font-weight:700;">54%</td><td></td></tr>
+        <tr><td>26년 3월</td><td>80명</td><td>3명</td><td style="color:#e63946;font-weight:700;">4%</td><td>아임인 특가 기획 론칭 직후 시기</td></tr>
+        <tr><td>26년 4월</td><td>80명</td><td>8명</td><td style="color:#e63946;font-weight:700;">10%</td><td>영수증 세탁소 프로모션 진행</td></tr>
+        <tr><td>26년 5월</td><td>80명</td><td>집계 중</td><td>—</td><td>마츠야마 항공권 특가 운영 중</td></tr>
+      </tbody>
+    </table>
+
+    <h3>트립 사업 구조 현황</h3>
+    <table>
+      <thead><tr><th>항목</th><th>현황</th><th>리스크</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>상품 소싱</strong></td>
+          <td>청주/인천 출발 항공권 (일본·중국·동남아·대만), 호텔 패키지<br><span class="small">주요 공급사: 리더스항공(하드블록)</span></td>
+          <td><span class="tag tag-amber">중</span> 일본 노선 편중, 중국 노선 확장 중</td>
+        </tr>
+        <tr>
+          <td><strong>판매 채널</strong></td>
+          <td>아임인트립 홈페이지, 어딩(타 OTA), 땡처리닷컴, KKDAY<br><span class="small">기타 채널 매출이 아임인트립 자체보다 압도적으로 높음</span></td>
+          <td><span class="tag tag-red">고</span> 직접 채널 경쟁력 부재</td>
+        </tr>
+        <tr>
+          <td><strong>마케팅 구조</strong></td>
+          <td>스테이지 시작 조건부 특가(게이팅), CRM 푸시, 파트너스 홍보, 홈/커뮤니티 배너</td>
+          <td><span class="tag tag-amber">중</span> 게이팅이 오히려 전환 마찰 요인</td>
+        </tr>
+        <tr>
+          <td><strong>수익 모델</strong></td>
+          <td>수익률 4~5% (예: 매출 2,131만 → 수익 101.8만)</td>
+          <td><span class="tag tag-red">고</span> 판촉비 지출 시 적자 전환 위험</td>
+        </tr>
+        <tr>
+          <td><strong>법무/보안</strong></td>
+          <td>어딩 업체 연동 관련 이슈 발생, 개선 요구사항 정의 중</td>
+          <td><span class="tag tag-amber">중</span> B2B 요구사항 협상 필요</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 2. 문제 진단 -->
+  <div class="section">
+    <div class="section-title"><span class="num">02</span> 근본 문제 진단 — 왜 트립은 AU 레버로 작동 못하는가</div>
+
+    <h3>전환 깔때기 분석</h3>
+    <div class="funnel">
+      <div class="funnel-step">
+        <div class="funnel-label">트립 인지 (노출)</div>
+        <div class="funnel-bar-wrap">
+          <div class="funnel-bar" style="background:#4361ee; width:100%;">홈배너·커뮤니티·CRM 도달</div>
+        </div>
+        <div class="funnel-note">100%</div>
+      </div>
+      <div class="arrow-down">↓</div>
+      <div class="funnel-step">
+        <div class="funnel-label">트립 페이지 유입</div>
+        <div class="funnel-bar-wrap">
+          <div class="funnel-bar" style="background:#6c7ee1; width:60%;">특가 페이지 랜딩</div>
+        </div>
+        <div class="funnel-note">추정 60%</div>
+      </div>
+      <div class="arrow-down">↓</div>
+      <div class="funnel-step">
+        <div class="funnel-label">트립 회원가입</div>
+        <div class="funnel-bar-wrap">
+          <div class="funnel-bar" style="background:#a5b4fc; width:21%;">42명 / 198명 목표</div>
+        </div>
+        <div class="funnel-note">21%</div>
+      </div>
+      <div class="arrow-down">↓</div>
+      <div class="funnel-step">
+        <div class="funnel-label">스테이지 시작<br>(AU 전환)</div>
+        <div class="funnel-bar-wrap">
+          <div class="funnel-bar" style="background:#e63946; width:10%;">8명 / 80명 목표</div>
+        </div>
+        <div class="funnel-note">10%</div>
+      </div>
+    </div>
+    <p class="small" style="margin-top: 8px;">※ 트립 회원 42명 중 8명만 스테이지 시작 → 트립 가입 → 스테이지 전환율 19%</p>
+
+    <h3>구조적 문제 4가지</h3>
+    <table>
+      <thead><tr><th>#</th><th>문제</th><th>현상</th><th>심각도</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>P1</strong></td>
+          <td><strong>시점 불일치</strong><br>목돈이 언제 생기는지 모른 채 여행 특가 제공</td>
+          <td>스테이지 참여자는 수령까지 6~12개월 남음. "지금" 여행 결정 어려움</td>
+          <td><span class="tag tag-red">최고</span></td>
+        </tr>
+        <tr>
+          <td><strong>P2</strong></td>
+          <td><strong>게이팅 마찰</strong><br>"스테이지 시작 → 1회차 납입 완료" 조건 충족 후 구매 확정</td>
+          <td>상품 확인 후 구매 불가. 불확실성이 결정 포기를 유도</td>
+          <td><span class="tag tag-red">최고</span></td>
+        </tr>
+        <tr>
+          <td><strong>P3</strong></td>
+          <td><strong>타겟 미분화</strong><br>여행 목적 스테이지 사용자와 일반 사용자 동일 취급</td>
+          <td>여행 목적으로 스테이지 참여한 고의도 유저를 특별 관리 안 함</td>
+          <td><span class="tag tag-amber">높음</span></td>
+        </tr>
+        <tr>
+          <td><strong>P4</strong></td>
+          <td><strong>수익 구조 취약</strong><br>수익률 4~5%에 판촉비 지출 시 적자</td>
+          <td>AU 기여 저조한데 수익도 미미 → 트립의 전략적 존재 의미 약화</td>
+          <td><span class="tag tag-amber">높음</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout amber">
+      <strong>핵심 역설:</strong> 아임인은 "언제, 얼마를 받을지 확정된 여행자 예비군" 데이터를 가진 국내 유일한 플랫폼이다. 그런데 트립은 이 데이터를 전혀 활용하지 않고, 일반 여행 플랫폼처럼 단순 특가 제공에 머물고 있다.
+    </div>
+  </div>
+
+  <!-- 3. 전략 비교 -->
+  <div class="section">
+    <div class="section-title"><span class="num">03</span> As-Is vs To-Be — 여행 데이터 파트너십의 보완 논리</div>
+
+    <div class="compare-grid">
+      <div class="compare-box asis">
+        <div class="compare-head red">As-Is: 아임인 트립 (현재)</div>
+        <div class="compare-item">아임인이 직접 여행 상품 판매</div>
+        <div class="compare-item">수익률 4~5%, 판촉비 지출 시 적자 위험</div>
+        <div class="compare-item">수령 시점 무관하게 "지금" 구매 유도</div>
+        <div class="compare-item">AU 기여 목표 달성률 10%</div>
+        <div class="compare-item">기타 채널(어딩/땡처리닷컴)이 자체 채널보다 강함</div>
+        <div class="compare-item">여행 목적 스테이지 데이터 미활용</div>
+        <div class="compare-item">상품 소싱·MD·OP 운영 복잡도 높음</div>
+      </div>
+      <div class="compare-box tobe">
+        <div class="compare-head green">To-Be: 여행 데이터 파트너십 (추가)</div>
+        <div class="compare-item">B2B 데이터 판매 → 운영 복잡도 낮음</div>
+        <div class="compare-item">월 기본료 + CPA 하이브리드 수익 (S2 기준 ~2억/년)</div>
+        <div class="compare-item">목돈 수령 1~2개월 전 선제 접근</div>
+        <div class="compare-item">여행 목적 스테이지 사용자 9만명 타겟</div>
+        <div class="compare-item">마이리얼트립·트립닷컴·클룩 채널 활용</div>
+        <div class="compare-item">스테이지 목적 데이터 + 수령 시점 + 금액 구간 활용</div>
+        <div class="compare-item">트립 기존 채널 대체 아닌 보완 관계</div>
+      </div>
+    </div>
+
+    <h3>두 전략의 관계: 경쟁이 아닌 계층화</h3>
+    <table>
+      <thead><tr><th>타겟 시점</th><th>아임인 트립 (기존)</th><th>여행 데이터 파트너십 (신규)</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>스테이지 시작 직후</strong><br>(수령 6~12개월 전)</td>
+          <td>특가 게이팅으로 Start 유도<br><span class="tag tag-blue">AU 전환 레버</span></td>
+          <td>동의 수령 후 파트너사 DB 등록<br><span class="tag tag-green">장기 파이프라인 구축</span></td>
+        </tr>
+        <tr>
+          <td><strong>수령 2~3개월 전</strong></td>
+          <td>CRM 재타겟팅 (현재 미운영)</td>
+          <td>파트너사 맞춤 CRM 발송<br><span class="tag tag-green">고의도 여행 준비 시점</span></td>
+        </tr>
+        <tr>
+          <td><strong>수령 당월</strong></td>
+          <td>만족도 높은 고객 재구매 기대</td>
+          <td>파트너사 전환 완료 → CPA 정산<br><span class="tag tag-green">B2B 수익 확정</span></td>
+        </tr>
+        <tr>
+          <td><strong>수령 후 6개월</strong></td>
+          <td>동의 데이터 파기</td>
+          <td>파트너사 구매 이력 → 재타겟팅<br><span class="tag tag-amber">재방문 여행자 포착</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 4. 여행 데이터 파트너십 상세 전략 -->
+  <div class="section">
+    <div class="section-title"><span class="num">04</span> 여행 데이터 파트너십 — 전략 심화 분석</div>
+
+    <h3>아임인이 가진 데이터의 독보적 가치</h3>
+    <div class="pillar-grid">
+      <div class="pillar" style="border-color:#4361ee;">
+        <div class="pillar-icon">🎯</div>
+        <div class="pillar-title">인텐트 데이터</div>
+        <div class="pillar-body">여행 목적으로 스테이지를 개설했다 → 이미 여행을 "계획 중"인 고의도 사용자. 일반 여행 광고 타겟(관심 추정)과 근본적으로 다름</div>
+      </div>
+      <div class="pillar" style="border-color:#4caf50;">
+        <div class="pillar-icon">📅</div>
+        <div class="pillar-title">시점 데이터</div>
+        <div class="pillar-body">목돈 수령 예정 월(연·월 단위)을 알고 있음. 여행 결정이 일어날 시점을 2~3개월 전에 예측 가능</div>
+      </div>
+      <div class="pillar" style="border-color:#f39c12;">
+        <div class="pillar-icon">💰</div>
+        <div class="pillar-title">예산 데이터</div>
+        <div class="pillar-body">수령 예정 금액 구간(100만/200만/300만 이상)으로 여행 예산 규모 추정 가능. 항공 단독 vs 패키지 vs 럭셔리 분류 기반</div>
+      </div>
+      <div class="pillar" style="border-color:#9b59b6;">
+        <div class="pillar-icon">✅</div>
+        <div class="pillar-title">행동 데이터</div>
+        <div class="pillar-body">스테이지를 지속적으로 납입하는 사람 = 금융 약속을 이행하는 사람. 여행 예약도 실제로 할 가능성이 높은 집단</div>
+      </div>
+    </div>
+
+    <h3>수익 시뮬레이션 (여행 목적 스테이지 ~9만명 기준)</h3>
+    <table>
+      <thead><tr><th>시나리오</th><th>동의율</th><th>동의 인원</th><th>파트너사 전환율</th><th>전환 건수/분기</th><th>연간 수익 추산</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="tag tag-red">S1 보수</span></td>
+          <td>10%</td>
+          <td>9,000명</td>
+          <td>8%</td>
+          <td>720건</td>
+          <td><strong>~8,000만원</strong></td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-amber">S2 기본</span></td>
+          <td>20%</td>
+          <td>18,000명</td>
+          <td>10%</td>
+          <td>1,800건</td>
+          <td><strong>~2억원</strong></td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-green">S3 낙관</span></td>
+          <td>35%</td>
+          <td>31,500명</td>
+          <td>13%</td>
+          <td>4,095건</td>
+          <td><strong>~5억원</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="small">※ 하이브리드 모델(월 기본료 200만/사 + CPA 8,000~15,000원/건) 기준, 파트너사 3개사 합산</p>
+    <p class="small">※ 트립 현재 연간 수익 추산 ~1,200만원(월 101.8만 × 12)과 비교 시 S2 기준 약 17배 높은 수익 구조</p>
+
+    <div class="callout success">
+      <strong>트립과의 수익 비교:</strong> 트립 연간 목표 총 수익 1,325만원(26년 목표) vs 데이터 파트너십 S2 기준 ~2억원. 운영 복잡도는 낮고 수익 규모는 15배. 단, 트립은 AU 레버 역할도 겸하므로 대체가 아닌 병행이 원칙.
+    </div>
+
+    <h3>파트너사별 역할 분담 전략</h3>
+    <table>
+      <thead><tr><th>파트너사</th><th>특화 영역</th><th>활용 데이터 조합</th><th>전략적 가치</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>마이리얼트립</strong></td>
+          <td>국내 OTA 1위, 프리미엄 자유여행</td>
+          <td>수령 2~3개월 전 + 200만~300만 구간</td>
+          <td><span class="tag tag-green">파일럿 1순위</span> 국내 컴플라이언스 안정적</td>
+        </tr>
+        <tr>
+          <td><strong>트립닷컴</strong></td>
+          <td>글로벌 OTA, 항공+호텔 번들</td>
+          <td>수령 시점 + 300만 이상 구간 + 선호 지역(동남아·일본)</td>
+          <td><span class="tag tag-blue">글로벌 확장</span> 중화권 연결 가능성</td>
+        </tr>
+        <tr>
+          <td><strong>클룩</strong></td>
+          <td>액티비티·투어 특화</td>
+          <td>수령 당월 + 100만~200만 구간 + 동행 인원</td>
+          <td><span class="tag tag-amber">보완재</span> 항공+호텔 이후 액티비티 크로스셀</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 5. 트립 개선 방향 -->
+  <div class="section">
+    <div class="section-title"><span class="num">05</span> 아임인 트립 자체 개선 방향 — 데이터 파트너십 병행 전제</div>
+
+    <h3>단기 개선 (2~3개월 내 실행 가능)</h3>
+    <table>
+      <thead><tr><th>#</th><th>개선 항목</th><th>현재 문제</th><th>개선 방향</th><th>예상 효과</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>A1</strong></td>
+          <td><strong>여행 목적 스테이지 CRM 분리</strong></td>
+          <td>전체 사용자 동일 CRM</td>
+          <td>여행 목적 설정자 전용 CRM 시퀀스 개발<br><span class="small">트리거: 스테이지 목적 = 여행 AND 수령 3개월 미만</span></td>
+          <td>타겟 정밀도 향상 → 전환율 2~3배 기대</td>
+        </tr>
+        <tr>
+          <td><strong>A2</strong></td>
+          <td><strong>게이팅 구조 완화</strong></td>
+          <td>스테이지 완료 후에만 구매 확정</td>
+          <td>스테이지 시작 시 특가 "예약"(가예약) 허용<br>1회차 납입 완료 시 확정으로 전환</td>
+          <td>전환 마찰 감소, 특가 페이지 이탈률 개선</td>
+        </tr>
+        <tr>
+          <td><strong>A3</strong></td>
+          <td><strong>트립→스테이지 역방향 퍼널 강화</strong></td>
+          <td>트립 구매자 → 아임인 재전환 미운영</td>
+          <td>트립 구매 확정 후 "목돈 쿠폰 5만원" 제공<br>아임인 앱 다운로드 및 스테이지 시작 CTA 필수화</td>
+          <td>트립 구매자 → AU 전환 추가 확보</td>
+        </tr>
+        <tr>
+          <td><strong>A4</strong></td>
+          <td><strong>상품 믹스 최적화</strong></td>
+          <td>일본 노선 편중</td>
+          <td>여행 목적 스테이지 사용자의 선호 지역 데이터 분석<br>→ 인기 여행지 중심 상품 집중</td>
+          <td>수요-공급 매칭 개선, 재고 낭비 감소</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>중장기 개선 (6개월~, 데이터 파트너십 병행 후)</h3>
+    <div class="callout">
+      데이터 파트너십이 안착되면 아임인 트립은 <strong>"1차 전환 레버 (Start 유도)"</strong> 역할에 집중하고, <strong>중장기 여행 구매 수요</strong>는 파트너사가 흡수하는 구조로 역할 분담이 명확해진다. 이 시점에서 트립의 상품 라인업과 마케팅 예산은 Start 유도 효율(CAC per Start)에만 집중 최적화한다.
+    </div>
+  </div>
+
+  <!-- 6. 통합 실행 로드맵 -->
+  <div class="section">
+    <div class="section-title"><span class="num">06</span> 통합 실행 로드맵</div>
+
+    <div class="roadmap">
+      <div class="road-card p1">
+        <div class="road-phase blue">Phase 1</div>
+        <div class="road-period">26년 6~7월<br>기반 구축</div>
+        <div class="road-item">법무 검토 및 동의서 최종화</div>
+        <div class="road-item">여행 목적 스테이지 CRM 분리 개발</div>
+        <div class="road-item">마이리얼트립 파일럿 계약 협상</div>
+        <div class="road-item">동의 UI 앱 내 적용 (CPO 요청)</div>
+        <div class="road-item">트립 게이팅 구조 완화 (가예약)</div>
+      </div>
+      <div class="road-card p2">
+        <div class="road-phase amber">Phase 2</div>
+        <div class="road-period">26년 8~10월<br>파일럿 운영</div>
+        <div class="road-item">마이리얼트립 1개사 데이터 제공 개시</div>
+        <div class="road-item">동의율 측정 및 최적화 (목표 20%)</div>
+        <div class="road-item">파트너사 CPA 전환율 측정</div>
+        <div class="road-item">트립 여행 목적 CRM 시퀀스 가동</div>
+        <div class="road-item">트립→아임인 역방향 퍼널 성과 측정</div>
+      </div>
+      <div class="road-card p3">
+        <div class="road-phase green">Phase 3</div>
+        <div class="road-period">26년 11월~<br>확장 & 안착</div>
+        <div class="road-item">트립닷컴·클룩 추가 계약</div>
+        <div class="road-item">수익 모델 고도화 (독점 카테고리)</div>
+        <div class="road-item">트립 역할 재정의 (Start 레버 집중)</div>
+        <div class="road-item">A/B 테스트 기반 동의율 최적화</div>
+        <div class="road-item">글로벌 파트너(트립닷컴) 확장 협의</div>
+      </div>
+    </div>
+
+    <h3>의사결정 요청</h3>
+    <table>
+      <thead><tr><th>역할</th><th>결정 사항</th><th>시한</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>CEO</strong></td>
+          <td>여행 데이터 파트너십 사업 방향 승인 + 트립 역할 재정의 결정 (레버 집중 vs 수익 병행)</td>
+          <td>6월 1주</td>
+        </tr>
+        <tr>
+          <td><strong>CPO</strong></td>
+          <td>① 여행 목적 스테이지 CRM 분리 개발 일정 확정 ② 동의 UI 앱 적용 일정 ③ 트립 게이팅 완화(가예약) 개발</td>
+          <td>6월 2주</td>
+        </tr>
+        <tr>
+          <td><strong>CSO/법무</strong></td>
+          <td>동의서 최종 법무 검토 완료 및 마이리얼트립 계약서 검토 착수</td>
+          <td>6월 3주</td>
+        </tr>
+        <tr>
+          <td><strong>BD (허진영)</strong></td>
+          <td>마이리얼트립 파일럿 계약 협상 착수 + 트립닷컴·클룩 1차 미팅 세팅</td>
+          <td>6월 중순</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 7. 참고 링크 -->
+  <div class="section">
+    <div class="section-title"><span class="num">07</span> 참고 링크 (최신순)</div>
+    <ul class="ref-list">
+      <li>
+        <a href="https://www.notion.so/twavecorp/35fc5b86712e8033b3cbf9e9639f0633" target="_blank">[트립_콘텐츠] 260513_특가 변경 — 홈/커뮤니티 배너</a>
+        <span class="ref-date">2026-05-13</span>
+      </li>
+      <li>
+        <a href="https://www.notion.so/twavecorp/351c5b86712e8048aed2f7fe2661be49" target="_blank">26년 5월 트립 캘린더 &amp; 매출 (진행 중)</a>
+        <span class="ref-date">2026-04-29</span>
+      </li>
+      <li>
+        <a href="https://www.notion.so/twavecorp/332c5b86712e802f88e8d6ac3cddbe8b" target="_blank">[프로모션] 26년 4월 AU 프로모션 — 영수증 세탁소</a>
+        <span class="ref-date">2026-04-01~30</span>
+      </li>
+      <li>
+        <a href="https://www.notion.so/twavecorp/334c5b86712e80909292f65b7a9a1679" target="_blank">26년 4월 트립 캘린더 &amp; 매출 (완료)</a>
+        <span class="ref-date">2026-04-30</span>
+      </li>
+      <li>
+        <a href="https://www.notion.so/twavecorp/32cc5b86712e8067a792ec4cf25d2e4e" target="_blank">[CRM] 트립 아임인 특가 부스팅 캠페인 기획 및 세팅</a>
+        <span class="ref-date">2026-03-26</span>
+      </li>
+      <li>
+        <a href="https://www.notion.so/twavecorp/30dc5b86712e806fba32da6a436aee8a" target="_blank">[트립] 아임인 특가 기획 (스테이지 게이팅 설계)</a>
+        <span class="ref-date">2026-03-11</span>
+      </li>
+      <li>
+        <a href="https://www.notion.so/twavecorp/320c5b86712e80c7ae1ee94e37b97be4" target="_blank">[트립] 아임인 특가 CRM 세팅</a>
+        <span class="ref-date">2026-03-11</span>
+      </li>
+      <li>
+        <a href="https://www.notion.so/twavecorp/31fc5b86712e81eca0d8d851fff401dd" target="_blank">트립 그룹 KPI 2026 — AU 월 40→80명 목표</a>
+        <span class="ref-date">2026-03-10</span>
+      </li>
+      <li>
+        <a href="https://www.notion.so/twavecorp/2dcc5b86712e80238818d1ad6b681ced" target="_blank">트립 12월 마감 기준 (트립 가입 급감 데이터)</a>
+        <span class="ref-date">2026-01-02</span>
+      </li>
+      <li>
+        <a href="https://www.notion.so/twavecorp/296c5b86712e80ed968ee64aa46088ed" target="_blank">트립 2025-2026년 KPI 작성 (월별 목표·실적 테이블)</a>
+        <span class="ref-date">2025-10-24</span>
+      </li>
+    </ul>
+  </div>
+
+  <p style="text-align:center; font-size:12px; color:#adb5bd; margin-top: 24px;">
+    INTERNAL CONFIDENTIAL — (주)티웨이브 내부 전략 보고서 | 2026-05-15<br>
+    문의: todd.heo@twave.co.kr
+  </p>
+
+</div>
+</body>
+</html>
